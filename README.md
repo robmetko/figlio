@@ -6,4 +6,5 @@ Git Flow (AVH): https://github.com/petervanderdoes/gitflow-avh/wiki/Installation
 
 # Helpful Notes
 - Add/Edit: simply add files or make changes to the file.
-- Commit: In Team Explorer, click Changes
+- Commit (Local ONLY): In Team Explorer, click Changes, right click to the file that you want to commit, click Stage. Then add a commit message to commit.
+- Push: 
