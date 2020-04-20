@@ -1,0 +1,118 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema   xmlns:xs="http://www.w3.org/2001/XMLSchema"  
+             xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+           xmlns="http://www.nbfc.com/Services/Schemas/DnBCredit/Clients/v1"
+             xmlns:cm="http://www.nbfc.com/Services/Schemas/Common/v3"
+            targetNamespace="http://www.nbfc.com/Services/Schemas/DnBCredit/Clients/v1"
+          elementFormDefault="qualified" attributeFormDefault="qualified"  version="1.0" 
+           id="NBSchemasDnBCreditClientsV1">
+
+  <xs:import namespace="http://www.nbfc.com/Services/Schemas/Common/v3" schemaLocation="NB-Schemas-Common-v3-0.xsd.xsd">
+    <xs:annotation>
+      <xs:documentation>
+        Access to cm: namespace - Northbridge XML schema for common elements, version 3.0
+      </xs:documentation>
+    </xs:annotation>
+  </xs:import>
+  
+  
+  <!-- Search DnB by compnay name and address-->
+  <xs:element name="FindCompanyRq" type="FindCompanyRq_Type" /> 
+
+  <!-- Get response from searching DnB by compnay name and address-->
+  <xs:element name="FindCompanyRs" type="FindCompanyRs_Type" />  
+  
+  <!-- Search DnB Credit number  by name, DUNSNumber-->
+  <xs:element name="GetCreditScoreRq" type="GetCreditScoreRq_Type" />  
+  
+       <!-- Get response from searching DnB by Credit number-->
+ <xs:element name="GetCreditScoreRs" type="GetCreditScoreRs_Type" />
+  
+  
+  <xs:complexType name="FindCompanyRq_Type">
+    <xs:sequence>
+     <xs:element ref="cm:ReqHeader"/>       
+      <xs:element name="Company" type="CompanyInfo_Type"  minOccurs="0" maxOccurs="1"/>  
+    </xs:sequence>
+  </xs:complexType>
+    
+  <xs:complexType name="FindCompanyRs_Type">
+    <xs:sequence>
+      <xs:element ref="cm:RespHeader" minOccurs="0"/>
+      <xs:element ref="cm:Status"/>
+			<xs:element ref="cm:Fault" minOccurs="0"/>
+      <xs:element name="Companies" type="CompaniesInfo_Type" minOccurs="0"/> 
+    </xs:sequence>
+  </xs:complexType>
+    
+  
+   <xs:complexType name="CompaniesInfo_Type">
+    <xs:sequence>
+      <xs:element  name="Company" type="CompanyInfo_Type" minOccurs="0"  maxOccurs="unbounded" />
+    </xs:sequence>
+  </xs:complexType>
+    
+      
+   <xs:complexType name="GetCreditScoreRq_Type">
+    <xs:sequence>
+       <xs:element ref="cm:ReqHeader"/><!-- i remoove company info and reaced it with only DUNS number-->
+      <xs:element name="CountryCode"  type="xs:string" minOccurs="0" maxOccurs="1"/>
+      <xs:element name="CompanyName" minOccurs="0" maxOccurs="1" type="CompanyName_Type" />
+      <xs:element name="DUNSNumber" type="DUNSNumber_Type" minOccurs="0" maxOccurs="1"/>
+    </xs:sequence>
+  </xs:complexType>
+  
+  <xs:complexType name="GetCreditScoreRs_Type">
+    <xs:sequence>
+      <xs:element ref="cm:RespHeader" minOccurs="0"/>
+     <xs:element ref="cm:Status"/>
+			<xs:element ref="cm:Fault" minOccurs="0"/>
+      <xs:element name="Company" type="CompanyInfo_Type" nillable="true"/> 
+      <xs:element name="CommercialCreditScore" type="CCS_Type"  nillable="true"/> 
+    </xs:sequence>
+  </xs:complexType>
+
+
+  <xs:complexType name="CCS_Type">
+    <xs:sequence>
+      <xs:element name="RawScore" minOccurs="0" maxOccurs="1" type="xs:string" />
+      <xs:element name="ClassScore" minOccurs="0" maxOccurs="1" type="xs:string" />
+      <xs:element name="ClassScoreDescription" minOccurs="0" maxOccurs="1" type="xs:string" />
+      <xs:element name="NationalPercentile" minOccurs="0" maxOccurs="1" type="xs:string" />
+      <xs:element name="ScoreDate" minOccurs="0" maxOccurs="1" type="xs:string" />
+    </xs:sequence>
+  </xs:complexType>
+  
+  
+  <xs:complexType name="CompanyInfo_Type">
+    <xs:sequence>
+      <xs:element name="CompanyName" minOccurs="0" maxOccurs="1" type="CompanyName_Type" />      
+      <xs:element name="DUNSNumber" type="DUNSNumber_Type" minOccurs="0" maxOccurs="1"/>  
+      <xs:element name="TelephoneNumber" type="TelephoneNumber_Type" minOccurs="0" maxOccurs="1"/>
+      <xs:element name="ConfidenceCodeValue"  minOccurs="0"  maxOccurs="1" type="xs:string"/>
+      <xs:element  ref="cm:Address" />
+  </xs:sequence>
+  </xs:complexType>
+  
+  
+  <!--this is from DnB documentation-->
+  <xs:simpleType name="DUNSNumber_Type">
+    <xs:restriction base="xs:string">
+      <xs:maxLength value="15"/>
+      <xs:pattern value="([0-9a-zA-Z]*)"/>
+    </xs:restriction>
+  </xs:simpleType>
+
+  <xs:simpleType name="CompanyName_Type">   
+      <xs:restriction base="xs:string">
+        <xs:maxLength value="240"/>
+      </xs:restriction>   
+  </xs:simpleType>
+  
+  <xs:simpleType name="TelephoneNumber_Type">   
+      <xs:restriction base="xs:string">
+        <xs:maxLength value="50"/>
+      </xs:restriction>   
+  </xs:simpleType>
+
+</xs:schema>

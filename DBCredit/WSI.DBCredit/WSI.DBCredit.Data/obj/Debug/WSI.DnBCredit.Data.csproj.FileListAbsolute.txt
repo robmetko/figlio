@@ -1,0 +1,10 @@
+C:\TFS\NBFC\Integration\ESBNetServices\MidMarket\DBCredit\WSI.DBCredit\WSI.DBCredit.Data\bin\Debug\WSI.DnBCredit.Data.dll.config
+C:\TFS\NBFC\Integration\ESBNetServices\MidMarket\DBCredit\WSI.DBCredit\WSI.DBCredit.Data\bin\Debug\WSI.DnBCredit.Data.dll
+C:\TFS\NBFC\Integration\ESBNetServices\MidMarket\DBCredit\WSI.DBCredit\WSI.DBCredit.Data\bin\Debug\WSI.DnBCredit.Data.pdb
+C:\TFS\NBFC\Integration\ESBNetServices\MidMarket\DBCredit\WSI.DBCredit\WSI.DBCredit.Data\bin\Debug\Newtonsoft.Json.dll
+C:\TFS\NBFC\Integration\ESBNetServices\MidMarket\DBCredit\WSI.DBCredit\WSI.DBCredit.Data\bin\Debug\Newtonsoft.Json.xml
+C:\TFS\NBFC\Integration\ESBNetServices\MidMarket\DBCredit\WSI.DBCredit\WSI.DBCredit.Data\obj\Debug\WSI.DnBCredit.Data.csprojAssemblyReference.cache
+C:\TFS\NBFC\Integration\ESBNetServices\MidMarket\DBCredit\WSI.DBCredit\WSI.DBCredit.Data\obj\Debug\WSI.DnBCredit.Data.csproj.CoreCompileInputs.cache
+C:\TFS\NBFC\Integration\ESBNetServices\MidMarket\DBCredit\WSI.DBCredit\WSI.DBCredit.Data\obj\Debug\WSI.DnBCredit.Data.csproj.CopyComplete
+C:\TFS\NBFC\Integration\ESBNetServices\MidMarket\DBCredit\WSI.DBCredit\WSI.DBCredit.Data\obj\Debug\WSI.DnBCredit.Data.dll
+C:\TFS\NBFC\Integration\ESBNetServices\MidMarket\DBCredit\WSI.DBCredit\WSI.DBCredit.Data\obj\Debug\WSI.DnBCredit.Data.pdb

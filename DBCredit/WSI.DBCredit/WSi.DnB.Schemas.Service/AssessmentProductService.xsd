@@ -1,0 +1,3425 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- edited with XMLSpy v2010 rel. 2 (http://www.altova.com) by Punnoose (DUN & BRADSTREET) -->
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:assprod="http://services.dnb.com/AssessmentProductServiceV2.0" targetNamespace="http://services.dnb.com/AssessmentProductServiceV2.0" elementFormDefault="unqualified" attributeFormDefault="unqualified" version="5.0">
+	<xs:annotation>
+		<xs:documentation>Last Update Date: 2014-12-11
+      </xs:documentation>
+	</xs:annotation>
+	<xs:complexType name="ActivitiesAndOperations">
+		<xs:annotation>
+			<xs:documentation>
+Records the description of operations continued by a business including market information such as the number of customers, agency details and import/export details.
+         </xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="LineOfBusinessDetails" type="assprod:LineOfBusinessDetailsType" minOccurs="0" maxOccurs="unbounded">
+				<xs:annotation>
+					<xs:documentation>
+An entry loop which can repeat multiple times to allow the recording of several different descriptions of operations continued by a business in different languages.
+               </xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="AmountType">
+		<xs:simpleContent>
+			<xs:extension base="xs:decimal">
+				<xs:attribute name="CurrencyISOAlpha3Code" type="assprod:CurrencyISOAlpha3Code">
+					<xs:annotation>
+						<xs:documentation>
+The three-letter curreny code, defined in the ISO 3166-1 scheme published by International Organization for Standardization (ISO)identifying the type of money in which this amount is expressed, e.g. USD, CAD, GBP, EUR.
+                  </xs:documentation>
+					</xs:annotation>
+				</xs:attribute>
+				<xs:attribute name="UnitOfSize" type="assprod:UnitOfSizeEnumeration">
+					<xs:annotation>
+						<xs:documentation>
+Text that specifies the multiple of the unit of amount in which this figure is recorded, e.g., thousands, millions, billions. For example, if the sales figure is 54398 with 000&amp;apos;s omitted, the unit of size is thousands and the figure of 54398 (NOT 54398000) is recorded.
+                  </xs:documentation>
+					</xs:annotation>
+				</xs:attribute>
+				<xs:attribute name="ReliabilityText" type="assprod:StringBaseType256">
+					<xs:annotation>
+						<xs:documentation>
+Text that describes the accuracy of the figure, e.g., actual, estimated, modeled.
+                  </xs:documentation>
+					</xs:annotation>
+				</xs:attribute>
+			</xs:extension>
+		</xs:simpleContent>
+	</xs:complexType>
+	<xs:complexType name="ArchiveDetail">
+		<xs:sequence>
+			<xs:element name="ArchiveProductOptOutIndicator" type="xs:boolean" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>
+When turned ON (set to TRUE), it indicates that the product being ordered is not to be stored. 
+When turned OFF (set to FALSE), it indicates that the product being ordered is to be stored; however as this is the assumed condition there is no requirement to create this tag to represent this fact.
+               </xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="ExtendArchivePeriodIndicator" type="xs:boolean" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>
+When turned ON (set to TRUE), the duration to archive the data is to be extended. Note: There is an additional cost for extending the archival period of the data purchased. 
+When turned OFF (set to FALSE), the duration to archive the data is not to be extended.
+               </xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="PortfolioAssetContainerID" type="assprod:PortfolioAssetContainerIDType" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>
+A number used to uniquely identify the location where this product is to be stored.
+               </xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="Assessment">
+		<xs:sequence>
+			<xs:element name="DNBStandardRating" type="assprod:DNBStandardRatingType" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>
+Records the most current Standard D&amp;B Rating assigned to this organization.
+               </xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="DNBViabilityRating" type="assprod:DNBViabilityRatingType" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>
+Records D&amp;B&apos;s proprietary analytics which compares the most predictive organization risk indicators to deliver a highly reliable assessment of the probability that an organization will go out of business within the next 12 months.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="DNBStandardRatingHistory" type="assprod:DNBStandardRatingType" minOccurs="0" maxOccurs="unbounded">
+				<xs:annotation>
+					<xs:documentation>
+An entry loop which can repeat multiple times to allow the recording of several different Standard D&amp;B Ratings that were previously assigned to this organization.
+               </xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="HistoryRatingText" type="assprod:DNBDecodedStringType" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>
+Text that specifies if D&amp;B has any information that may reflect unfavorably on this organization, e.g., clear, incomplete, management, business.
+               </xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="CommercialCreditScore" type="assprod:CommercialCreditScoreType" minOccurs="0" maxOccurs="unbounded">
+				<xs:annotation>
+					<xs:documentation>
+An entry loop that repeats multiple times to allow the recording of the most recent risk scores that are assigned to this organization on a given date/time using a scoring model that help predict the likelihood that the organization will pay its bills in a severely delinquent manner (90+ days past due) over the next 12 months.
+               </xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="CommercialCreditScoreNorms" type="assprod:ScoreNormType" minOccurs="0" maxOccurs="unbounded">
+				<xs:annotation>
+					<xs:documentation>
+An entry loop that repeats multiple times to allow the recording of statistically determined standards, such as the average or quartile results, of the Commercial Credit Score.
+               </xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="FinancialStressScore" type="assprod:ScoreType" minOccurs="0" maxOccurs="unbounded">
+				<xs:annotation>
+					<xs:documentation>
+An entry loop that repeats multiple times to allow the recording of the most recent risk scores that are assigned to this organization on a given date/time using a scoring model that help predict the likelihood that the organization will seek legal relief from creditors or cease operations without paying all creditors in full over the next 12 months.
+               </xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="DNBCreditLimitRecommendation" type="assprod:DNBCreditLimitRecommendationType" minOccurs="0"/>
+			<xs:element name="EmergingMarketMediationScore" type="assprod:ScoreType" minOccurs="0"/>
+			<xs:element name="SupplierStabilityIndexScore" type="assprod:ScoreType" minOccurs="0"/>
+			<xs:element name="SupplierEvaluationRiskScore" type="assprod:SupplierEvaluationRiskScore" minOccurs="0" maxOccurs="unbounded"/>
+			<xs:element name="FinancialStressReferenceData" type="assprod:ScoreReferenceType" minOccurs="0"/>
+			<xs:element name="FinancialConditionText" type="assprod:DNBDecodedStringType" minOccurs="0"/>
+			<xs:element name="OverallTrendText" type="assprod:DNBDecodedStringType" minOccurs="0"/>
+			<xs:element name="AssessmentSummaryText" minOccurs="0" maxOccurs="unbounded">
+				<xs:annotation>
+					<xs:documentation>
+Text that records a brief statement of the assessment.
+               </xs:documentation>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:string">
+						<xs:maxLength value="3000"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="TotalLossPredictorScore" type="assprod:TotalLossPredictorScoreType" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>
+Records the most recent risk scores that are assigned to this organization on a given date/time using a scoring model that help predict the likelihood that the organization will not pay other commercial businesses, which affects financial institutions and other industries that extend trade credit.
+               </xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="SupplierPerformanceScore" type="assprod:SupplierPerformanceScoreType" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>
+Records the most recent scores that are assigned to this organization that predicts how well the organization as a supplier is performing for its customers.
+               </xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="TriplePlayScore" type="assprod:TriplePlayScoreType" minOccurs="0">
+            <xs:annotation>
+               <xs:documentation>
+Records the most recent risk scores that are assigned to this organization using a scoring model derived using the combination of Viability rating, Total loss predictor and Delinquency Score. This score can be used by the customer to decide upon an action for their business relationships with the subject based on the composite risk score and the predefined segments under which the subject falls into.
+               </xs:documentation>
+            </xs:annotation>
+         </xs:element>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="Association"/>
+	<xs:complexType name="BankruptcyInformation">
+		<xs:annotation>
+			<xs:documentation>
+Records the details and the summarized views about the legally declared inability or impairment of ability of an individual or organization to pay its creditors.
+         </xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="Bankruptcy" type="assprod:BankruptcyType" minOccurs="0" maxOccurs="unbounded">
+				<xs:annotation>
+					<xs:documentation>
+An entry loop which can repeat multiple times to allow the recording of details on the subject&apos;s legal declaration on it&apos;s inability to pay its creditors.
+               </xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="BankruptcyType">
+		<xs:annotation>
+			<xs:documentation>
+This section provides details on the Bankruptcy that was filed by the company.
+         </xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="FilingTypeText" type="assprod:DNBDecodedStringType" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>
+Text that describes the type of event which has been registered or recorded against the subject.
+               </xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="FilingDate" type="assprod:DNBDateType" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>
+The date when the event took place.
+               </xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="FilingChapterNumber" type="xs:string" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>
+The number that identifies the Chapter of Bankruptcy Law under which the legal proceeding was filed for declaring the subject&apos;s inability to pay its creditors. For example, in the US &apos;Chapter 7&apos; means Liquidation, &apos;Chapter 13&apos; means Adjustment Of Debts Of An Individual With Regular Income. Note: The word &quot;Chapter&quot; is simply a reference to a chapter number in the US Bankruptcy Code.
+               </xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="RolePlayer" type="assprod:FilingPartyType" minOccurs="0" maxOccurs="unbounded">
+				<xs:annotation>
+					<xs:documentation>
+An entry loop which can repeat multiple times to allow the recording of various role players involved in a Legal Event as recorded in court papers and identifies the part each one plays, e.g., the creditor, debtor, plaintiff, defendant, solicitor, liquidator, trustee.
+               </xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="ChapterConversionDetails" type="assprod:ChapterConversionDetailsType" minOccurs="0" maxOccurs="unbounded"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="BaseAddressType">
+		<xs:complexContent>
+			<xs:extension base="assprod:SimpleAddress">
+				<xs:sequence>
+					<xs:element name="MinorTownName" minOccurs="0">
+						<xs:annotation>
+							<xs:documentation>
+Text recording the name of a village, town or suburb where this is not a Primary Town/City. For example, &apos;Booker&apos; in Booker, High Wycombe.
+                     </xs:documentation>
+						</xs:annotation>
+						<xs:simpleType>
+							<xs:restriction base="xs:string">
+								<xs:maxLength value="64"/>
+							</xs:restriction>
+						</xs:simpleType>
+					</xs:element>
+					<xs:element name="TerritoryAbbreviatedName" minOccurs="0">
+						<xs:annotation>
+							<xs:documentation>
+The shortened name of the locally governed area which forms part of a centrally governed nation. For example &apos;NJ&apos; for the US State New Jersey within Country United States of America.
+                     </xs:documentation>
+						</xs:annotation>
+						<xs:simpleType>
+							<xs:restriction base="xs:string">
+								<xs:maxLength value="64"/>
+							</xs:restriction>
+						</xs:simpleType>
+					</xs:element>
+					<xs:element name="PostalCode" minOccurs="0">
+						<xs:annotation>
+							<xs:documentation>
+An identifier used by the local country Postal Authority to identify a particular geographic location. For example, in Belgium, Postal Code 9000 identifies the town of GHENT.
+                     </xs:documentation>
+						</xs:annotation>
+						<xs:simpleType>
+							<xs:restriction base="xs:string">
+								<xs:maxLength value="16"/>
+							</xs:restriction>
+						</xs:simpleType>
+					</xs:element>
+					<xs:element name="CountyOfficialName" minOccurs="0">
+						<xs:simpleType>
+							<xs:restriction base="xs:string">
+								<xs:maxLength value="64"/>
+							</xs:restriction>
+						</xs:simpleType>
+					</xs:element>
+					<xs:element name="TerritoryOfficialName" minOccurs="0">
+						<xs:simpleType>
+							<xs:restriction base="xs:string">
+								<xs:maxLength value="64"/>
+							</xs:restriction>
+						</xs:simpleType>
+					</xs:element>
+				</xs:sequence>
+				<xs:attribute name="LanguageCode" type="assprod:DNBCodeValueType">
+					<xs:annotation>
+						<xs:documentation>
+A D&amp;B code value that defines the language in which the data is presented.
+                  </xs:documentation>
+					</xs:annotation>
+				</xs:attribute>
+				<xs:attribute name="WritingScriptCode" type="assprod:DNBCodeValueType">
+					<xs:annotation>
+						<xs:documentation>
+A D&amp;B code value that defines the set of graphic characters used for the written form of one or more languages, in which this data is presented.
+                  </xs:documentation>
+					</xs:annotation>
+				</xs:attribute>
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+	<xs:complexType name="BaseBalanceSheetType">
+		<xs:sequence>
+			<xs:element name="Liabilities" type="assprod:Liabilities" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>
+Records the  legal debts or obligations of a company &#160;that arise during the course of business operations. Liabilities are settled over time through&#160;the transfer of economic benefits including money,&#160;goods or services.
+               </xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="BaseEventType">
+		<xs:annotation>
+			<xs:documentation>
+Special Events summaries list recent developments not featured in other categories that may impact your potential relationship with a firm, such as bankruptcy filings, natural disasters, crime, a change in ownership, acquisitions, and other events.
+         </xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="EventDate" type="assprod:DNBDateType" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>
+The date when the event took place.
+               </xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="EventDetailText" type="xs:string" minOccurs="0" maxOccurs="unbounded">
+				<xs:annotation>
+					<xs:documentation>
+A textual description of filing details associated with this legal event.
+               </xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:sequence>
+		<xs:attribute name="DNBCodeTableNumber" type="xs:integer">
+			<xs:annotation>
+				<xs:documentation>
+The identifier of the table in the D&amp;B Standard Code Table System (SCoTS) which has this unique D&amp;B code value.
+            </xs:documentation>
+			</xs:annotation>
+		</xs:attribute>
+		<xs:attribute name="DNBCodeValue" type="xs:integer">
+			<xs:annotation>
+				<xs:documentation>
+A unique number assigned by D&amp;B to identify the fact recorded in this data element.
+            </xs:documentation>
+			</xs:annotation>
+		</xs:attribute>
+		<xs:attribute name="TypeText" type="assprod:StringBaseType256">
+			<xs:annotation>
+				<xs:documentation>
+A text that describes the type of event which has been registered or recorded against the subject. For example, Criminal Proceedings, Protested Bills, County Court Judgments, Receiverships, Bankruptcies.
+            </xs:documentation>
+			</xs:annotation>
+		</xs:attribute>
+	</xs:complexType>
+	<xs:complexType name="BusinessTrading">
+		<xs:annotation>
+			<xs:documentation>
+Records references or opinions  in terms of the timeliness of payment, the amounts of the transactions and the terms of sale applied to the transactions and  summarized views of this data that involves the subject either as a buyer or supplier of goods or services.
+         </xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="Purchaser" type="assprod:Purchaser" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>
+Records trade data where the subject is a purchaser of good or services.
+               </xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="PaydexScoreNorms" type="assprod:PaydexScoreNorms" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>
+Records the norm Paydex Scores for the subject&apos;s industry or country over time. Norm Paydex Scores is a numeric value that is a collective measure of how all the businesses pay their creditors, where the higher the number, the more timely the payments.  For example, the median norm for businesses in the publishing industry may be 70, while the median norm for businesses in the farming industry may be 59.
+               </xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="TradeDataUnavailabilityIndicator" type="xs:boolean" minOccurs="0"/>
+			<xs:element name="DisclaimerText" type="assprod:StringBaseType720" minOccurs="0"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="ChapterConversionDetailsType">
+		<xs:sequence>
+			<xs:element name="ConversionDate" type="assprod:DNBDateType" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>
+The date when the bankruptcy was converted from one chapter to another.
+               </xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="ConversionChapterNumber" type="assprod:StringBaseType128" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>
+The number that identifies the Chapter of Bankruptcy Law to which the bankruptcy was converted.
+               </xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="CommercialCreditScoreType">
+		<xs:complexContent>
+			<xs:extension base="assprod:ScoreType">
+				<xs:sequence>
+					<xs:element name="RiskIncidenceMinimumRangeRawScore" minOccurs="0">
+						<xs:simpleType>
+							<xs:restriction base="xs:string">
+								<xs:maxLength value="16"/>
+							</xs:restriction>
+						</xs:simpleType>
+					</xs:element>
+					<xs:element name="RiskIncidenceMaximumRangeRawScore" minOccurs="0">
+						<xs:simpleType>
+							<xs:restriction base="xs:string">
+								<xs:maxLength value="16"/>
+							</xs:restriction>
+						</xs:simpleType>
+					</xs:element>
+				</xs:sequence>
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+	<xs:simpleType name="CountryISOAlpha2Type">
+		<xs:restriction base="xs:string">
+			<xs:minLength value="2"/>
+			<xs:maxLength value="2"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="CurrencyISOAlpha3Code">
+		<xs:restriction base="xs:string">
+			<xs:maxLength value="3"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:complexType name="CurrentPaydexScoreType">
+		<xs:sequence>
+			<xs:element name="TwentyFourMonthsPaydex" type="assprod:PaydexScoreType" minOccurs="0" maxOccurs="2">
+				<xs:annotation>
+					<xs:documentation>
+An entry loop which can repeat to allow the recording of the numeric value assigned to an organization by a D&amp;B algorithm, assessing the organization&apos;s ability to meet future obligations of a particular monetary range based on the twenty four most recent months of trade experiences as of the current month,  from different sources.
+               </xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:simpleType name="CustomerReferenceText">
+		<xs:restriction base="xs:string">
+			<xs:minLength value="1"/>
+			<xs:maxLength value="240"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:complexType name="DataDepthDetailType">
+		<xs:annotation>
+			<xs:documentation>
+Records D&amp;amp;B&apos;s proprietary analytics information that identifies the level of predictive data available with D&amp;amp;B to assess the organization&#8217;s  viability or to identify the high risk category to which the organization belongs.
+         </xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="DataDepthIndicator">
+				<xs:annotation>
+					<xs:documentation>
+An alphabet that identifies the level of predictive data available with D&amp;amp;B to assess the organization&#8217;s  viability or to identify the high risk category to which the organization belongs. 
+
+The level of data is represented by a letter on a scale of A &#8211; G where A reflects  highest availability of predictive data and G reflects a lowest availability of predictive data.
+ 
+If an organization has been confirmed as high risk, a letter ranging from H &#8211; M will be assigned to identify the specific high risk category.
+
+Note: The element name DataDepthIndicator is a DNB Brand name and does not record a boolean value as with the case of other element names suffixed with the term &quot;Indicator&quot;
+               </xs:documentation>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:string">
+						<xs:maxLength value="1"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="AssessmentText" maxOccurs="unbounded">
+				<xs:annotation>
+					<xs:documentation>
+Text that describes the outcome of assessment on the level of predictive data available or the risk category to which the organization belongs.
+               </xs:documentation>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:string">
+						<xs:maxLength value="512"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:simpleType name="DateTimestamp">
+		<xs:annotation>
+			<xs:documentation>
+YYYY-MM-DDThh:mmTZD (eg 1997-07-16T19:20+01:00)
+   Complete date plus hours, minutes and seconds:
+            YYYY-MM-DDThh:mm:ssTZD (eg 1997-07-16T19:20:30+01:00)
+   Complete date plus hours, minutes, seconds and a decimal fraction of a
+second
+            YYYY-MM-DDThh:mm:ss.sTZD (eg 1997-07-16T19:20:30.45+01:00)
+         </xs:documentation>
+		</xs:annotation>
+		<xs:restriction base="xs:dateTime"/>
+	</xs:simpleType>
+	<xs:complexType name="DebarmentsInformation">
+		<xs:sequence>
+			<xs:element name="DebarmentsSummary" type="assprod:DebarmentsSummaryType"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="DebarmentsSummaryType">
+		<xs:complexContent>
+			<xs:extension base="assprod:LegalEventSummaryType"/>
+		</xs:complexContent>
+	</xs:complexType>
+	<xs:simpleType name="DNBCodeValueType">
+		<xs:restriction base="xs:integer">
+			<xs:totalDigits value="7"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:complexType name="DNBCreditLimitRecommendationType">
+		<xs:sequence>
+			<xs:element name="MaximumRecommendedLimitAmount" type="assprod:AmountType" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>
+A monetary figure suggesting the greatest amount of credit that should be extended to this organization.  This amount may be determined, as an example, by matching an organization&apos;s profile (e.g., industry, employee size, credit risk) against credit benchmarks that have been created by D&amp;B using the same criteria. Clarification Note:  The recommendation does not mean that the organization can actually pay the specified amount, or that it can&apos;t actually pay a larger amount, but instead provides an empirical recommendation based on D&amp;B&apos;s extensive predictive modeling expertise using our large database of businesses.
+               </xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:simpleType name="DNBDateSimpleType">
+		<xs:union memberTypes="xs:date xs:gYear xs:gYearMonth"/>
+	</xs:simpleType>
+	<xs:complexType name="DNBDateType">
+		<xs:simpleContent>
+			<xs:extension base="assprod:DNBDateSimpleType">
+				<xs:attribute name="DatePrecisionText">
+					<xs:annotation>
+						<xs:documentation>
+Text denoting the degree to which the date is accurate, i.e., the full date is valid, only the month and year are valid, only the year is valid.
+                  </xs:documentation>
+					</xs:annotation>
+					<xs:simpleType>
+						<xs:restriction base="xs:string">
+							<xs:maxLength value="192"/>
+						</xs:restriction>
+					</xs:simpleType>
+				</xs:attribute>
+				<xs:attribute name="DatePrecisionDNBCodeValue" type="assprod:DNBCodeValueType">
+					<xs:annotation>
+						<xs:documentation>
+The D&amp;B code value denoting the degree to which the date is accurate.
+                  </xs:documentation>
+					</xs:annotation>
+				</xs:attribute>
+				<xs:attribute name="DatePrecisionDNBCodeTableNumber" type="xs:int">
+					<xs:annotation>
+						<xs:documentation>
+The identifier of the table in the D&amp;B Standard Code Table System (SCoTS) which has this unique D&amp;B code value.
+                  </xs:documentation>
+					</xs:annotation>
+				</xs:attribute>
+			</xs:extension>
+		</xs:simpleContent>
+	</xs:complexType>
+	<xs:complexType name="DNBDecodedStringType">
+		<xs:simpleContent>
+			<xs:extension base="assprod:StringBaseType256">
+				<xs:attribute name="DNBCodeValue" type="assprod:DNBCodeValueType">
+					<xs:annotation>
+						<xs:documentation>
+A unique number assigned by D&amp;B to identify the fact recorded in this data element.
+                  </xs:documentation>
+					</xs:annotation>
+				</xs:attribute>
+				<xs:attribute name="DNBCodeTableNumber" type="xs:int">
+					<xs:annotation>
+						<xs:documentation>
+The identifier of the table in the D&amp;B Standard Code Table System (SCoTS) which has this unique D&amp;B code value.
+                  </xs:documentation>
+					</xs:annotation>
+				</xs:attribute>
+			</xs:extension>
+		</xs:simpleContent>
+	</xs:complexType>
+	<xs:complexType name="DNBStandardRatingType">
+		<xs:annotation>
+			<xs:documentation>
+Based on information contained in the BIR, indicates the estimated financial strength and composite credit appraisal assigned by the Business Reporter on a subjective basis at the time the report is written.
+         </xs:documentation>
+		</xs:annotation>
+		<xs:complexContent>
+			<xs:extension base="assprod:Rating">
+				<xs:sequence>
+					<xs:element name="DNBStandardRating">
+						<xs:annotation>
+							<xs:documentation>
+Text that Indicates the estimated financial strength and composite credit appraisal assigned by the Business Reporter on a subjective basis at the time the report is written.
+                     </xs:documentation>
+						</xs:annotation>
+						<xs:simpleType>
+							<xs:restriction base="xs:string">
+								<xs:maxLength value="64"/>
+							</xs:restriction>
+						</xs:simpleType>
+					</xs:element>
+					<xs:element name="RatingSummaryText" minOccurs="0">
+						<xs:annotation>
+							<xs:documentation>
+Text that provides an explanation / interpretation of the D&amp;B assigned rating for this company.Rating overview and history of rating from the date when the company assigned with Rating first.
+Note:This free form text element to support current legacy data format. This field will not be used in the new Data Supply Chain where this information can map to discrete fields.
+                     </xs:documentation>
+						</xs:annotation>
+						<xs:simpleType>
+							<xs:restriction base="xs:string">
+								<xs:maxLength value="3000"/>
+							</xs:restriction>
+						</xs:simpleType>
+					</xs:element>
+				</xs:sequence>
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+	<xs:complexType name="DNBStringType">
+		<xs:simpleContent>
+			<xs:extension base="assprod:StringBaseType">
+				<xs:attribute name="LanguageCode" type="assprod:DNBCodeValueType">
+					<xs:annotation>
+						<xs:documentation>
+A D&amp;B code value that defines the language in which the data is presented.
+                  </xs:documentation>
+					</xs:annotation>
+				</xs:attribute>
+				<xs:attribute name="WritingScriptISOAlpha4Code">
+					<xs:annotation>
+						<xs:documentation>
+The four-letter code identifying the set of graphic characters used for the written form of one or more languages, defined in the ISO 15924 scheme published by International Organization for Standardization (ISO) in which this data is presented.
+                  </xs:documentation>
+					</xs:annotation>
+					<xs:simpleType>
+						<xs:restriction base="xs:string">
+							<xs:maxLength value="4"/>
+						</xs:restriction>
+					</xs:simpleType>
+				</xs:attribute>
+			</xs:extension>
+		</xs:simpleContent>
+	</xs:complexType>
+	<xs:complexType name="DNBStringType256">
+		<xs:simpleContent>
+			<xs:extension base="assprod:StringBaseType256">
+				<xs:attribute name="LanguageCode" type="assprod:DNBCodeValueType">
+					<xs:annotation>
+						<xs:documentation>
+A D&amp;B code value that defines the language in which the data is presented.
+                  </xs:documentation>
+					</xs:annotation>
+				</xs:attribute>
+				<xs:attribute name="WritingScriptISOAlpha4Code">
+					<xs:annotation>
+						<xs:documentation>
+The four-letter code identifying the set of graphic characters used for the written form of one or more languages, defined in the ISO 15924 scheme published by International Organization for Standardization (ISO) in which this data is presented.
+                  </xs:documentation>
+					</xs:annotation>
+					<xs:simpleType>
+						<xs:restriction base="xs:string">
+							<xs:maxLength value="4"/>
+						</xs:restriction>
+					</xs:simpleType>
+				</xs:attribute>
+			</xs:extension>
+		</xs:simpleContent>
+	</xs:complexType>
+	<xs:complexType name="DNBViabilityRatingType">
+		<xs:annotation>
+			<xs:documentation>
+Records D&amp;amp;amp;B&amp;apos;s proprietary analytics which compares the most predictive organization risk indicators to deliver a highly reliable assessment of the probability that an organization will go out of business within the next 12 months.
+         </xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="RatingDate" type="xs:date" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>
+The date on which the rating score was derived.
+               </xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="DNBViabilityRating">
+				<xs:annotation>
+					<xs:documentation>
+An alphanumeric value that describes D&amp;B&apos;s proprietary analytics which compares the most predictive organization risk indicators to deliver a highly reliable assessment of the probability that an organization will go out of business within the next 12 months.
+The D&amp;B Viability Rating is made up of 4 components -
+Overall Viability Score
+Portfolio Comparison Score
+Data Depth Indicator
+Company Profile
+               </xs:documentation>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:string">
+						<xs:maxLength value="4"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="ViabilityScore" type="assprod:OverallViabilityScoreType" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>
+Records D&amp;amp;B&apos;s proprietary analytics information on the probability that an organization will go out of business in the next 12 months in comparison to all organizations within the same geography.
+               </xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="PortfolioComparisonScore" type="assprod:PortfolioComparisonScoreType" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>
+Records D&amp;amp;B&apos;s proprietary analytics information probability that an organization will go out of business in the next 12 months in comparison to all organizations within the same model segment. The score ranges from 1 to 9 where 9 reflects the highest probability and 1 reflects the lowest probability that the organization will go out of business.
+               </xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="DataDepthDetail" type="assprod:DataDepthDetailType" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>
+Records D&amp;B&apos;s proprietary analytics information that identifies the level of predictive data available with D&amp;amp;B to assess the organization&#8217;s  viability or to identify the high risk category to which the organization belongs
+               </xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="OrganizationProfileDetail" type="assprod:OrganizationProfileDetailType" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>
+Records D&amp;B&apos;s proprietary analytics information that classifies the organization based on Financial data, Trade Payments, Organization Size and Years in Business.
+               </xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:simpleType name="DNBYearSimpleType">
+		<xs:union memberTypes="xs:gYear"/>
+	</xs:simpleType>
+	<xs:simpleType name="DUNSNumberType">
+		<xs:restriction base="xs:string">
+			<xs:maxLength value="15"/>
+			<xs:pattern value="([0-9a-zA-Z]*)"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="DurationType">
+		<xs:restriction base="xs:duration"/>
+	</xs:simpleType>
+	<xs:complexType name="EmployeeDetailsType">
+		<xs:sequence>
+			<xs:element name="TotalEmployeeQuantity" type="xs:long" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>
+A number that defines how many people are directly engaged and paid by the organization to perform or support its business operations.
+               </xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="EmployeeFigures">
+		<xs:sequence>
+			<xs:element name="HeadquartersLocationEmployeeDetails" type="assprod:EmployeeDetailsType" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>
+Records current employee data of only the Headquarters location. The employees who are engaged in the operations of the organization and are located at the headquarters location (i.e. the organization has branch locations).  Therefore, this employee figure excludes all persons located at branch locations and all persons employed by any subsidiaries. An &quot;Headquarters Only&quot; figure therefore refers to a subset of the &quot;Individual&quot; employees and can never be applied to an which is classified by D&amp;B as a &quot;branch&quot; location.
+               </xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="ConsolidatedEmployeeDetails" type="assprod:EmployeeDetailsType" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>
+Records current employee data which includes all employees who are engaged in the operations of the legal entity (including employees located at branch locations) as well as all employees who are engaged in the operations of every direct descendant in its family tree (based on controlling interest). I.e. Subsidiaries.&#160; Note: An organization which is classified by D&amp;B as a &quot;branch&quot; location cannot have an &quot;Consolidated&quot; employee figure.
+               </xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="Equity">
+		<xs:sequence>
+			<xs:element name="StatementItem" type="assprod:StatementItem" minOccurs="0" maxOccurs="unbounded">
+				<xs:annotation>
+					<xs:documentation>
+An entry loop which can repeat multiple times to allow the recording of all of the details (financial items) for a specific schedule within the Financial Statement in terms of monetary amounts.
+               </xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="Events">
+		<xs:annotation>
+			<xs:documentation>
+Records the information about that different events against the subject, e.g., legal event, financial event, significant event.
+         </xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="PublicFilingHeader" type="assprod:PublicFilingHeaderType" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>
+Records the information about Legal and Financing Events.
+               </xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="LegalEvents" type="assprod:LegalEvents" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>
+Records legal actions targeting the subject, such as criminal proceedings, protested bills, county court judgments, receiverships, bankruptcies.
+               </xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="FinancingEvents" type="assprod:FinancingEvents" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>
+Records the information about the events which have occurred and directly affect the subject&apos;s finances. For example, the means by which moneys are obtained by the subject,  financial securities which have been filed which affect the subject.
+               </xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="SignificantEvents" type="assprod:SignificantEvents" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>
+Records information about key events which may affect the subject. It covers such things as: natural disasters (e.g., floods, hurricane), accidents (e.g., chemical spillage), major events at the business (e.g.,change of control,business interruption, awarded contract), societal events (e.g., war, civil disturbance).
+               </xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="FamilyTreeMemberRole">
+		<xs:annotation>
+			<xs:documentation>
+An entry loop that can repeat multiple times to allow the recording of various parts that the Subject plays as a member of an ownership structured family tree.
+         </xs:documentation>
+		</xs:annotation>
+		<xs:complexContent>
+			<xs:extension base="assprod:Role">
+				<xs:sequence>
+					<xs:element name="FamilyTreeMemberRoleText" type="assprod:DNBDecodedStringType" minOccurs="0">
+						<xs:annotation>
+							<xs:documentation>
+Text describing the part that the Subject plays as a member of an ownership structured family tree, e.g., a branch, division, a parent, headquarters, subsidiary, global ultimate, domestic ultimate.
+                     </xs:documentation>
+						</xs:annotation>
+					</xs:element>
+				</xs:sequence>
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+	<xs:complexType name="FilingPartyType">
+		<xs:sequence>
+			<xs:element name="RolePlayerTypeText" type="assprod:DNBDecodedStringType" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>
+Text describing the function played by this party in the event, e.g., debtor, creditor, liquidator, shareholder, court, plaintiff, defendant.
+               </xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="RolePlayerName" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>
+The name of the party involved in this event, as it was filed.
+               </xs:documentation>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:string">
+						<xs:maxLength value="240"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="Financial">
+		<xs:sequence>
+			<xs:element name="FinancialStatement" type="assprod:FinancialStatement" minOccurs="0" maxOccurs="unbounded">
+				<xs:annotation>
+					<xs:documentation>
+An entry loop which can repeat multiple times to record information characterizing an organization&apos;s financial health, such as its operation results (over a specified period of time), the ownership equity in the business, its money management (at a point in time), and derived ratios that give insight into its profitability, solvency, liquidity, and other characteristics.  The financial figures may be provided as actual or estimated figures by the subject, an outside source, or modeled by D&amp;B.  It may cover a single organization or multiple related organizations.  The figures may be qualified based on the auditor&apos;s remarks.
+               </xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="FinancialAmountType">
+		<xs:simpleContent>
+			<xs:extension base="xs:decimal">
+				<xs:attribute name="CurrencyISOAlpha3Code" type="assprod:CurrencyISOAlpha3Code">
+					<xs:annotation>
+						<xs:documentation>
+The three-letter curreny code, defined in the ISO 3166-1 scheme published by International Organization for Standardization (ISO)identifying the type of money in which this amount is expressed, e.g. USD, CAD, GBP, EUR.
+                  </xs:documentation>
+					</xs:annotation>
+				</xs:attribute>
+				<xs:attribute name="ReliabilityText" type="assprod:StringBaseType256">
+					<xs:annotation>
+						<xs:documentation>
+Text that describes the accuracy of the figure, e.g., actual, estimated, modeled.
+                  </xs:documentation>
+					</xs:annotation>
+				</xs:attribute>
+				<xs:attribute name="UnitOfSize" type="assprod:UnitOfSizeEnumeration">
+					<xs:annotation>
+						<xs:documentation>
+Text that specifies the multiple of the unit of amount in which this figure is recorded, e.g., thousands, millions, billions. For example, if the sales figure is 54398 with 000&amp;apos;s omitted, the unit of size is thousands and the figure of 54398 (NOT 54398000) is recorded.
+                  </xs:documentation>
+					</xs:annotation>
+				</xs:attribute>
+				<xs:attribute name="DNBCodeValue" type="assprod:DNBCodeValueType">
+					<xs:annotation>
+						<xs:documentation>
+A unique number assigned by D&amp;B to identify the fact recorded in this data element.
+                  </xs:documentation>
+					</xs:annotation>
+				</xs:attribute>
+				<xs:attribute name="DNBCodeTableNumber" type="xs:int">
+					<xs:annotation>
+						<xs:documentation>
+The identifier of the table in the D&amp;B Standard Code Table System (SCoTS) which has this unique D&amp;B code value.
+                  </xs:documentation>
+					</xs:annotation>
+				</xs:attribute>
+				<xs:attribute name="ExternalCodingSchemeTypeText" type="xs:string"/>
+				<xs:attribute name="ExternalCodingSchemeValue" type="xs:string"/>
+			</xs:extension>
+		</xs:simpleContent>
+	</xs:complexType>
+	<xs:complexType name="FinancialStatement">
+		<xs:sequence>
+			<xs:element name="StatementHeaderDetails" type="assprod:StatementHeaderDetails" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>
+Records high level information which either identifies the presence of a financial statement for the subject or is derived from multiple financial statements.
+               </xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="BalanceSheet" type="assprod:BaseBalanceSheetType" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>
+Summarizes an organization or individual&apos;s assets, equity and liabilities at a specific point in time.
+               </xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="FinancingEvents">
+		<xs:annotation>
+			<xs:documentation>
+Records details of events which have occurred which directly affect the subject&apos;s finances. For example the means by which moneys are obtained by the subject or financial securities which have been filed which affect the subject.
+         </xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="SecuredFilingsIndicator" type="xs:boolean" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>
+When turned ON (set to TRUE), it indicates that open secured filings such as secured charges/mortgages pledgings or equivalent exist in the D&amp;B database.
+               </xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="FullName">
+		<xs:simpleContent>
+			<xs:extension base="assprod:StringBaseType256">
+				<xs:attribute name="FormatText" type="assprod:StringBaseType256">
+					<xs:annotation>
+						<xs:documentation>
+Text defining the format in which the FullName has been recorded; e.g., Correct order (First name first), Transposed (Last name first).
+                  </xs:documentation>
+					</xs:annotation>
+				</xs:attribute>
+			</xs:extension>
+		</xs:simpleContent>
+	</xs:complexType>
+	<xs:complexType name="IndividualNameType">
+		<xs:annotation>
+			<xs:documentation>
+A code that defines a language in which the specified product is available.
+         </xs:documentation>
+		</xs:annotation>
+		<xs:complexContent>
+			<xs:extension base="assprod:SubjectName">
+				<xs:sequence>
+					<xs:element name="FirstName" minOccurs="0">
+						<xs:annotation>
+							<xs:documentation>
+The given name of the individual. If this is not known then an initial may be supplied.
+                     </xs:documentation>
+						</xs:annotation>
+						<xs:simpleType>
+							<xs:restriction base="xs:string">
+								<xs:maxLength value="64"/>
+							</xs:restriction>
+						</xs:simpleType>
+					</xs:element>
+					<xs:element name="MiddleName" minOccurs="0">
+						<xs:annotation>
+							<xs:documentation>
+The portion of the individual&apos;s name (typically a personal name) placed after the first name and before the last name.
+                     </xs:documentation>
+						</xs:annotation>
+						<xs:simpleType>
+							<xs:restriction base="xs:string">
+								<xs:maxLength value="64"/>
+							</xs:restriction>
+						</xs:simpleType>
+					</xs:element>
+					<xs:element name="LastName" minOccurs="0">
+						<xs:annotation>
+							<xs:documentation>
+The portion of the individual&apos;s name usually presented at the end used to identify the members of a family.
+                     </xs:documentation>
+						</xs:annotation>
+						<xs:simpleType>
+							<xs:restriction base="xs:string">
+								<xs:maxLength value="64"/>
+							</xs:restriction>
+						</xs:simpleType>
+					</xs:element>
+					<xs:element name="FullName" type="assprod:FullName" minOccurs="0">
+						<xs:annotation>
+							<xs:documentation>
+The entire name of the subject where the subject is either an individual or an organization.
+                     </xs:documentation>
+						</xs:annotation>
+					</xs:element>
+				</xs:sequence>
+				<xs:attribute name="LanguageCode" type="assprod:DNBCodeValueType">
+					<xs:annotation>
+						<xs:documentation>
+A D&amp;B code value that defines the language in which the data is presented.
+                  </xs:documentation>
+					</xs:annotation>
+				</xs:attribute>
+				<xs:attribute name="WritingScriptISOAlpha4Code">
+					<xs:annotation>
+						<xs:documentation>
+The four-letter code identifying the set of graphic characters used for the written form of one or more languages, defined in the ISO 15924 scheme published by International Organization for Standardization (ISO) in which this data is presented.
+                  </xs:documentation>
+					</xs:annotation>
+					<xs:simpleType>
+						<xs:restriction base="xs:string">
+							<xs:maxLength value="4"/>
+						</xs:restriction>
+					</xs:simpleType>
+				</xs:attribute>
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+	<xs:complexType name="IndustryCode">
+		<xs:annotation>
+			<xs:documentation>
+Records the business activities in which an organization is actively engaged using standardized coding schemes such as European NACE and U.S. Standard Industry Classifications (SIC).  Examples of business activities are:  commercial printing, legal services, drug store, sheet metalwork fabricator.
+         </xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="IndustryCode" type="assprod:IndustryCodeType" minOccurs="0" maxOccurs="unbounded">
+				<xs:annotation>
+					<xs:documentation>
+An entry loop which can repeat multiple times to allow the recording of several business activities in which an organization is actively engaged using standardized coding schemes such as European NACE and U.S. Standard Industry Classifications (SIC).
+               </xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="IndustryCodeDescriptionType">
+		<xs:complexContent>
+			<xs:extension base="assprod:DNBStringType256">
+				<xs:attribute name="IndustryCodeDescriptionLengthCode" type="assprod:DNBCodeValueType">
+					<xs:annotation>
+						<xs:documentation>
+A code indicating the maximum length of the industry code description expressed as the number of characters.
+                  </xs:documentation>
+					</xs:annotation>
+				</xs:attribute>
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+	<xs:complexType name="IndustryCodeType">
+		<xs:complexContent>
+			<xs:extension base="assprod:PrimaryIndustryCodeType">
+				<xs:sequence>
+					<xs:element name="DisplaySequence" minOccurs="0">
+						<xs:annotation>
+							<xs:documentation>
+A number which may be used to define the order in which this industry code should be presented relative to other industry codes of the same type where the lower the number the earlier the data is presented.
+                     </xs:documentation>
+						</xs:annotation>
+						<xs:simpleType>
+							<xs:restriction base="xs:int">
+								<xs:totalDigits value="3"/>
+							</xs:restriction>
+						</xs:simpleType>
+					</xs:element>
+				</xs:sequence>
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+	<xs:complexType name="InquiryDetail">
+		<xs:sequence>
+			<xs:element name="DUNSNumber" type="assprod:DUNSNumberType">
+				<xs:annotation>
+					<xs:documentation>
+The D-U-N-S Number is D&amp;B&apos;s identification number, which provides unique identification of this organization, in accordance with the Data Universal Numbering System (D-U-N-S).
+               </xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="CountryISOAlpha2Code" type="assprod:CountryISOAlpha2Type" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>
+The two-letter country code, defined in the ISO 3166-1 scheme published by International Organization for Standardization (ISO)identifying the country of the inquired subject.
+               </xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="InquiryReferenceDetail">
+		<xs:sequence>
+			<xs:element name="CustomerReferenceText" minOccurs="0" maxOccurs="5">
+				<xs:annotation>
+					<xs:documentation>
+A freeform reference string provided by the customer to be linked to the product in order to support subsequent order reconciliation.
+               </xs:documentation>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:string">
+						<xs:maxLength value="240"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="CustomerBillingEndorsementText" type="assprod:CustomerReferenceText" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>
+Text that is filled in by customer and commonly contains requesting individual or department name, or customer&apos;s own account/reference number and/or name for the case on which the product was provided.This text is a reference used during the billing process.
+               </xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="IssuedLetterOfLiability">
+		<xs:sequence>
+			<xs:element name="SubscriberInfomation" type="assprod:SubscriberInfomation" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>
+Records information about the Letter of Liability subcribers .
+               </xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="IssuerInformation">
+		<xs:annotation>
+			<xs:documentation>
+Records information about the Letter of Liability issuers who have taken responsibility for the liabilities of the subject company.
+         </xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="BusinessName" type="assprod:StringBaseType256" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>
+Name of the organization.
+               </xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="DunsNumber" type="assprod:DUNSNumberType" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>
+The subject identifier under the Data Universal Numbering System. This is a numeric which is always 9 digits; the leading digit or digits may be zero.
+               </xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="FilingDate" type="assprod:DNBDateType" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>
+The date on which the subscriber company submitted a letter to take over the liabilities of the subject company
+               </xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="SubscriberAddress" type="assprod:SubjectAddressType" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>
+Address Details of the Letter of Liability subcribers .
+               </xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="LegalEvents">
+		<xs:annotation>
+			<xs:documentation>
+Contains all the sub-sections and elements belonging to the PublicFilings Data bucket.
+         </xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="BankruptcyIndicator" type="xs:boolean" minOccurs="0"/>
+			<xs:element name="SuitsIndicator" type="xs:boolean" minOccurs="0"/>
+			<xs:element name="LiensIndicator" type="xs:boolean" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>
+When turned ON (set to TRUE), it indicates that there is lien information  irrespective of its status (e.g., Open, Closed) recorded in the D&amp;amp;B database for this subject.
+When turned OFF (set to FALSE), it indicates that there is no lien information  irrespective of its status (e.g., Open, Closed) recorded in the D&amp;amp;B database for this subject.
+               </xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="JudgmentIndicator" type="xs:boolean" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>
+When turned ON (set to TRUE), it indicates that there is judgment information irrespective of its status (e.g., Open, Closed) recorded in the D&amp;amp;B database for this subject.
+When turned OFF (set to FALSE), it indicates that there is no judgment information irrespective of its status (e.g., Open, Closed) recorded in the D&amp;amp;B database for this subject.
+               </xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="BankruptcyInformation" type="assprod:BankruptcyInformation" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>
+Records the details and the summarized views about the legally declared inability of the subject to pay its creditors.
+               </xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="DebarmentsInformation" type="assprod:DebarmentsInformation" minOccurs="0"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="LegalEventSummaryType">
+		<xs:sequence>
+			<xs:element name="TotalFilingCount" type="xs:int" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>
+The total number of all legal events of the type covered by this summary.
+               </xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="Liabilities">
+		<xs:sequence>
+			<xs:element name="Equity" type="assprod:Equity" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>
+Records share capital/stock originally invested by shareholders/stockholders plus any reserves which have arisen, such as retained profits, which are ploughed back into the firm. Also known as Net Worth.
+               </xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="TotalEquityAmount" type="assprod:FinancialAmountType" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>
+The total value of share capital/stock originally invested by shareholders/stockholders plus any reserves which have arisen, such as retained profits, which are ploughed back into the firm.
+               </xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="LineOfBusinessDetailsType">
+		<xs:sequence>
+			<xs:element name="LineOfBusinessDescription" type="assprod:DNBStringType" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>
+Records the textual description of operations continued by a business.
+               </xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="Linkage">
+		<xs:sequence>
+			<xs:element name="ParentOrganization" type="assprod:Shareholder" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>
+Records information about the organization which owns more than 50% of the subject and the organization at the very top of the legal family.
+               </xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="Location">
+		<xs:annotation>
+			<xs:documentation>
+Records the address details for a subject. An address is the designation of a place where a subject can be located or may be communicated with, e.g., primary address, registered address, mailing address.
+         </xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="PrimaryAddress" type="assprod:PrimaryAddressType" minOccurs="0" maxOccurs="unbounded">
+				<xs:annotation>
+					<xs:documentation>
+An entry loop to allow the recording of a single primary or physical address of the subject in multiple languages and/or writing scripts. For an organization this is the principal address at which the organization is located. For an individual, this is the home address.
+               </xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="MailingAddress" type="assprod:MailAddressType" minOccurs="0" maxOccurs="unbounded">
+				<xs:annotation>
+					<xs:documentation>
+An entry loop which can repeat multiple times to allow the recording of address which is mainly utilized for the purpose of mail delivery. This usually includes a Post Office Box number or similar mailing details.
+               </xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="MailAddressType">
+		<xs:complexContent>
+			<xs:extension base="assprod:BaseAddressType"/>
+		</xs:complexContent>
+	</xs:complexType>
+	<xs:complexType name="Management">
+		<xs:complexContent>
+			<xs:extension base="assprod:Association">
+				<xs:sequence>
+					<xs:element name="PrincipalName" type="assprod:SubjectName" minOccurs="0">
+						<xs:annotation>
+							<xs:documentation>
+Records the different names for the Principal.
+                     </xs:documentation>
+						</xs:annotation>
+					</xs:element>
+					<xs:element name="Position" type="assprod:Position" minOccurs="0" maxOccurs="unbounded">
+						<xs:annotation>
+							<xs:documentation>
+An entry loop which can repeat multiple times to allow the recording of a job that is or was held by the principal or manager using D&amp;B standardized codes.  For instance, whether the position has been described to D&amp;B as Financial Director, Finance Director, or Director of Finance, it will be mapped to a single code described as Financial Director.
+                     </xs:documentation>
+						</xs:annotation>
+					</xs:element>
+				</xs:sequence>
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+	<xs:complexType name="Message"/>
+	<xs:complexType name="NormType">
+		<xs:sequence>
+			<xs:element name="MedianValue" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>
+The 50th percentile value for this norm type derived by ranking the set of results for all of the subjects in the defined universe from the smallest value to the largest value. A subject with a norm result below this value would be considered to be in the bottom 50% of the industry, a subject with a norm result greater than this value would be considered to be in the top 50% of the industry.
+               </xs:documentation>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:decimal">
+						<xs:totalDigits value="19"/>
+						<xs:fractionDigits value="4"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:element name="OrderProductRequest" type="assprod:OrderProductRequest"/>
+	<xs:complexType name="OrderProductRequest">
+		<xs:annotation>
+			<xs:documentation>
+Records data relating to requests for a product or products. This may include such details as the type of product required, the subject about which the product should be produced, the content of the product.
+         </xs:documentation>
+		</xs:annotation>
+		<xs:complexContent>
+			<xs:extension base="assprod:Request">
+				<xs:sequence>
+					<xs:element name="OrderProductRequestDetail" type="assprod:OrderProductRequestDetail" minOccurs="0">
+						<xs:annotation>
+							<xs:documentation>
+Records data relating to requests for a product. This may include such details as the product required, the subject about which the product should be produced, the content of the product.
+                     </xs:documentation>
+						</xs:annotation>
+					</xs:element>
+				</xs:sequence>
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+	<xs:complexType name="OrderProductRequestDetail">
+		<xs:sequence>
+			<xs:element name="InquiryDetail" type="assprod:InquiryDetail">
+				<xs:annotation>
+					<xs:documentation>
+Records data that allows the customer to specify identifying information about the subject being inquired, e.g., the DUNS Number, the address, the telephone number.
+               </xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="ProductSpecification" type="assprod:ProductSpecification">
+				<xs:annotation>
+					<xs:documentation>
+Records data that allows the customer to specify the details of the requested product. This may include details such as the identifier of the product, the language in which the product needs to be rendered, the format in which the product needs to be rendered.
+               </xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="ArchiveDetail" type="assprod:ArchiveDetail" minOccurs="0"/>
+			<xs:element name="InquiryReferenceDetail" type="assprod:InquiryReferenceDetail" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>
+Records data that allows the customer to specify information to be linked to the request in order to support subsequent order reconciliation.
+               </xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:element name="OrderProductResponse" type="assprod:OrderProductResponse"/>
+	<xs:complexType name="OrderProductResponse">
+		<xs:annotation>
+			<xs:documentation>
+Records the data being returned to the customer as a result of a product request.
+         </xs:documentation>
+		</xs:annotation>
+		<xs:complexContent>
+			<xs:extension base="assprod:Response">
+				<xs:sequence>
+					<xs:element name="OrderProductResponseDetail" type="assprod:OrderProductResponseDetail" minOccurs="0">
+						<xs:annotation>
+							<xs:documentation>
+Records the data being returned to the customer as a result of a product request.
+                     </xs:documentation>
+						</xs:annotation>
+					</xs:element>
+				</xs:sequence>
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+	<xs:complexType name="OrderProductResponseDetail">
+		<xs:sequence>
+			<xs:element name="InquiryDetail" type="assprod:ProductResponseInquiryDetail">
+				<xs:annotation>
+					<xs:documentation>
+Records data that allows the customer to specify identifying information about the subject being inquired, e.g., the DUNS Number, the address, the telephone number.
+               </xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="Product" type="assprod:Product">
+				<xs:annotation>
+					<xs:documentation>
+Records data about the product ordered by the customer and data about the organization on which the customer has placed this order.
+               </xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="InquiryReferenceDetail" type="assprod:InquiryReferenceDetail" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>
+Records data that allows the customer to specify information to be linked to the request in order to support subsequent order reconciliation.
+               </xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="Organization">
+		<xs:complexContent>
+			<xs:extension base="assprod:Subject">
+				<xs:sequence>
+					<xs:element name="OrganizationName" type="assprod:OrganizationName" minOccurs="0">
+						<xs:annotation>
+							<xs:documentation>
+Records the different names of the organization by which it is known as well as names of other organizations that have a similar name to this organization.
+                     </xs:documentation>
+						</xs:annotation>
+					</xs:element>
+					<xs:element name="OrganizationDetail" type="assprod:OrganizationDetail" minOccurs="0">
+						<xs:annotation>
+							<xs:documentation>
+Records fundamental information about a Subject which may vary over time.
+                     </xs:documentation>
+						</xs:annotation>
+					</xs:element>
+					<xs:element name="IndustryCode" type="assprod:IndustryCode" minOccurs="0">
+						<xs:annotation>
+							<xs:documentation>
+Records the business activities in which an organization is actively engaged using standardized coding schemes such as European NACE and U.S. Standard Industry Classifications (SIC).  Examples of business activities are:  commercial printing, legal services, drug store, sheet metalwork fabricator.
+                     </xs:documentation>
+						</xs:annotation>
+					</xs:element>
+					<xs:element name="ActivitiesAndOperations" type="assprod:ActivitiesAndOperations" minOccurs="0">
+						<xs:annotation>
+							<xs:documentation>
+Records the description of operations continued by a business including market information such as the number of customers, agency details and import/export details.
+                     </xs:documentation>
+						</xs:annotation>
+					</xs:element>
+					<xs:element name="EmployeeFigures" type="assprod:EmployeeFigures" minOccurs="0">
+						<xs:annotation>
+							<xs:documentation>
+Records information about the number of people engaged by an organization to perform its business operations.Several different Employee Figures for a subject could be recorded, e.g., consolidated, individual entity, headquarters only. A further breakdown of employee figures is recorded based on employment basis (e.g., full time, part time, contract) and/or employee category (e.g., clerical, management, marketing, sales, blue collar).
+                     </xs:documentation>
+						</xs:annotation>
+					</xs:element>
+					<xs:element name="Linkage" type="assprod:Linkage" minOccurs="0">
+						<xs:annotation>
+							<xs:documentation>
+Records the relationship between the subject and the next subject UP in the family tree. E.g. Its Parent, HQ, Joint Parent or shareholder. Also records names, addresses and registration numbers for the related subject. This data topic may also be used to record the details of the relationship between the subject and the business founder; however if a simple textual reference to the business founder is all that is required then the &apos;Started By&apos; element in &apos;Subject Details&apos; should be used
+                     </xs:documentation>
+						</xs:annotation>
+					</xs:element>
+					<xs:element name="Assessment" type="assprod:Assessment" minOccurs="0">
+						<xs:annotation>
+							<xs:documentation>
+Records insightful and value added information on organizations, such as: - recommendations on how much credit to extend to them, - assessments of their liquidity, - concise evaluations of their performance and behavior, - predictions on the risk of conducting business with them.  The predictive scores are usually calculated and assigned by D&amp;B, but such assessments may also be recorded when assigned by third parties.
+                     </xs:documentation>
+						</xs:annotation>
+					</xs:element>
+					<xs:element name="BusinessTrading" type="assprod:BusinessTrading" minOccurs="0">
+						<xs:annotation>
+							<xs:documentation>
+Records references or opinions  in terms of the timeliness of payment, the amounts of the transactions and the terms of sale applied to the transactions and  summarized views of this data that involves the subject either as a buyer or supplier of goods or services.
+                     </xs:documentation>
+						</xs:annotation>
+					</xs:element>
+					<xs:element name="PrincipalsAndManagement" type="assprod:PrincipalsAndManagement" minOccurs="0">
+						<xs:annotation>
+							<xs:documentation>
+Records details of the Principals (e.g., President, Vice President, Directors) and Managers responsible for the business strategy, decision making and day to day running of the subjects operations. This includes names, addresses and identification numbers of the principals. Whilst a principal will usually be an individual in some countries it is legally acceptable for a registered business entity to act as a principal in another business. This excludes shareholders and similar owners who are not responsible for the management of the organization but includes proprietors and partners who, whilst owners, are also generally the principals running the business.Records details of the Principals (e.g., President, Vice President, Directors) and Managers responsible for the business strategy, decision making and day to day running of the subjects operations. This includes names, addresses and identification numbers of the principals. Whilst a principal will usually be an individual in some countries it is legally acceptable for a registered business entity to act as a principal in another business. This excludes shareholders and similar owners who are not responsible for the management of the organization but includes proprietors and partners who, whilst owners, are also generally the principals running the business.
+                     </xs:documentation>
+						</xs:annotation>
+					</xs:element>
+				</xs:sequence>
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+	<xs:complexType name="OrganizationDetail">
+		<xs:annotation>
+			<xs:documentation>
+Records the fundamental information about a Subject which may vary over time.
+         </xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="FamilyTreeMemberRole" type="assprod:FamilyTreeMemberRole" minOccurs="0" maxOccurs="unbounded">
+				<xs:annotation>
+					<xs:documentation>
+An entry loop that can repeat multiple times to allow the recording of various parts that the Subject plays as a member of an ownership structured family tree.
+               </xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="StandaloneOrganizationIndicator" type="xs:boolean" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>
+When turned ON (set to TRUE) it indicates that this organization is not a member of a legal family tree. This means it cannot play the role of a subsidiary, parent, headquarters or branch; i.e., FamilyTreeMemberRoleText cannot be present.
+When turned OFF (set to FALSE) it indicates that this organization  is a member of a legal family tree. In this condition the FamilyTreeMemberRoleText must be present.
+               </xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="ControlOwnershipDate" type="assprod:DNBDateType" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>
+The date when the current owners took over this business.
+               </xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="OperatingStatusText" type="assprod:DNBDecodedStringType" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>
+Text describing this organization&apos;s functional state / trading status, e.g. active, out of business, dormant.
+               </xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="OrganizationStartYear" type="assprod:DNBYearSimpleType" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>
+The year when operations undertaken by the organization commenced.
+               </xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="OrganizationName">
+		<xs:complexContent>
+			<xs:extension base="assprod:SubjectName">
+				<xs:sequence>
+					<xs:element name="OrganizationPrimaryName" type="assprod:OrganizationPrimaryNameType" minOccurs="0" maxOccurs="unbounded">
+						<xs:annotation>
+							<xs:documentation>
+An entry loop which can repeat multiple times to allow the recording of a single name by which the organization is primarily known / identified in different languages and/or writing scripts.
+                     </xs:documentation>
+						</xs:annotation>
+					</xs:element>
+					<xs:element name="TradeStyleName" type="assprod:OrganizationNameBaseType" minOccurs="0" maxOccurs="unbounded">
+						<xs:annotation>
+							<xs:documentation>
+An entry loop which can repeat multiple times to allow the recording of a name which an organization trades under for commercial purposes, although its registered, legal name, used for contracts and other formal situations, may be another.
+                     </xs:documentation>
+						</xs:annotation>
+					</xs:element>
+					<xs:element name="DoNotConfuseOrganizationName" type="assprod:OrganizationNameBaseType" minOccurs="0" maxOccurs="unbounded">
+						<xs:annotation>
+							<xs:documentation>
+An entry loop which can repeat multiple times to allow the recording of such names which could be very similar to the names of the subject and are very likely to be mistakenly used as the name of the subject.  Note: This list is maintained so that using wrong names for a subject could be avoided.
+                     </xs:documentation>
+						</xs:annotation>
+					</xs:element>
+				</xs:sequence>
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+	<xs:complexType name="OrganizationNameBaseType">
+		<xs:sequence>
+			<xs:element name="OrganizationName" type="assprod:DNBStringType256">
+				<xs:annotation>
+					<xs:documentation>
+Text recording a name of this organization in the specified language and/or writing script.
+               </xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="DisplaySequence" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>
+A numeric value used to identify the relative importance of this Organization Name compared to the other Organization Names for this organization that are of the same type (e.g., Trading Style). The lower the importance level number, the more important (preferred) is an Organization Name.
+               </xs:documentation>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:int">
+						<xs:totalDigits value="3"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="OrganizationPrimaryNameType">
+		<xs:complexContent>
+			<xs:extension base="assprod:OrganizationNameBaseType">
+				<xs:attribute name="RegisteredNameIndicator" type="xs:boolean">
+					<xs:annotation>
+						<xs:documentation>
+When turned ON (set to true), the organization name presented is the name by which it is registered at a local or national registry. 
+When turned OFF (set to false), the organization name presented is not the name by which it is registered at a local or national registry.
+                  </xs:documentation>
+					</xs:annotation>
+				</xs:attribute>
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+	<xs:complexType name="OrganizationProfileDetailType">
+		<xs:annotation>
+			<xs:documentation>
+Records D&amp;B&apos;s proprietary analytics information that classifies the organization based on Financial data, Trade Payments, Organization Size and Years in Business.
+         </xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="OrganizationProfileRating">
+				<xs:annotation>
+					<xs:documentation>
+An alphabet that classifies the organization based on Financial data, Trade Payments, Company Size and Years in Business. This can range from A &#8211; X; e.g., &apos;A&apos; describes a company with a comprehensive level data, which has been in business 5+ years, with 50+ employees or $500K+ in sales, while &apos;X&apos; reflects  a company with a minimal data, in business &amp;lt;5 years, with &amp;lt;10 employees or &amp;lt;$10K in sales.  &apos;Y&apos; and &apos;Z&apos; reflect a Branch and Subsidiary, respectively.
+               </xs:documentation>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:string">
+						<xs:maxLength value="1"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="FinancialDataAvailableIndicator" type="xs:boolean" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>
+When turned ON (set to TRUE) this indicates that D&amp;amp;B has financial information on this organization.
+
+When turned OFF (set to FALSE) this indicates that D&amp;amp;B does not have financial information on this organization.
+               </xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="TradeDataAvailabilityDetail" type="assprod:TradeDataAvailabilityDetail" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>
+Records the statistical information based on the trade payment data available for this organization.
+               </xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="OrganizationSizeDetail" type="assprod:OrganizationSizeDetail" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>
+Records the statistical information based on the size of this organization.
+               </xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="YearsInBusinessDetail" type="assprod:YearsInBusinessDetail" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>
+Records the statistical information based on the number of years since this organization commenced its operation.
+               </xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="OrganizationSizeDetail">
+		<xs:annotation>
+			<xs:documentation>
+Records the statistical information based on the size of this organization.
+         </xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="OrganizationSizeCategoryText">
+				<xs:annotation>
+					<xs:documentation>
+Text denoting the broader classification of organizations assigned by D&amp;amp;B based on the analytical study of data available for this organization.
+               </xs:documentation>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:string">
+						<xs:maxLength value="512"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="AssessmentText" minOccurs="0" maxOccurs="unbounded">
+				<xs:annotation>
+					<xs:documentation>
+Text that describes the outcome of assessment on the level of predictive data available or the risk category to which the organization belongs.
+               </xs:documentation>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:string">
+						<xs:maxLength value="512"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="OverallViabilityScoreType">
+		<xs:complexContent>
+			<xs:extension base="assprod:ViabilityScoreType">
+				<xs:sequence>
+					<xs:element name="OverallBadRate" minOccurs="0">
+						<xs:annotation>
+							<xs:documentation>
+The percentage of organizations that can become inoperable.
+                     </xs:documentation>
+						</xs:annotation>
+						<xs:simpleType>
+							<xs:restriction base="xs:decimal">
+								<xs:totalDigits value="5"/>
+								<xs:fractionDigits value="2"/>
+							</xs:restriction>
+						</xs:simpleType>
+					</xs:element>
+				</xs:sequence>
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+	<xs:complexType name="Ownership">
+		<xs:complexContent>
+			<xs:extension base="assprod:Association">
+				<xs:sequence>
+					<xs:element name="DUNSNumber" type="assprod:DUNSNumberType" minOccurs="0">
+						<xs:annotation>
+							<xs:documentation>
+The D-U-N-S Number is D&amp;B&apos;s identification number, which provides unique identification of this organization, in accordance with the Data Universal Numbering System (D-U-N-S).
+                     </xs:documentation>
+						</xs:annotation>
+					</xs:element>
+				</xs:sequence>
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+	<xs:complexType name="PaydexScoreHistoryType">
+		<xs:sequence>
+			<xs:element name="TwentyFourMonthsPaydex" type="assprod:PaydexScoreType" minOccurs="0" maxOccurs="2">
+				<xs:annotation>
+					<xs:documentation>
+An entry loop which can repeat to allow the recording of the numeric value assigned to an organization by a D&amp;B algorithm, assessing the organization&apos;s ability to meet future obligations of a particular monetary range based on the twenty four most recent months of trade experiences as of the current month,  from different sources.
+               </xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="PaydexScoreIndustryNormsType">
+		<xs:sequence>
+			<xs:element name="PaydexMedianQuartileScore" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>
+A numerical score denoting how timely payments are, statistically-speaking, at the point at which 50% of the organizations included in this industry norm have an equal or higher payment index score, while the other 50% of organizations have an equal or lower payment index score.
+               </xs:documentation>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:int">
+						<xs:totalDigits value="3"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="PaymentBehaviourText" type="assprod:StringBaseType256" minOccurs="0"/>
+			<xs:element name="PaymentBehaviourDaysQuantity" minOccurs="0">
+				<xs:simpleType>
+					<xs:restriction base="xs:integer">
+						<xs:totalDigits value="3"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="PaydexScoreNorms">
+		<xs:sequence>
+			<xs:element name="PaydexScoreIndustryNorms" type="assprod:PaydexScoreIndustryNormsType" minOccurs="0" maxOccurs="unbounded">
+				<xs:annotation>
+					<xs:documentation>
+An entry loop which can repeat multiple times to allow the recording of the norm Paydex Scores for the subject&apos;s industry over time.that is a collective measure of how all the businesses in a particular industry (on which D&amp;B has trade) pay their creditors, where the higher the number, the more timely the payments.For example, the median norm for businesses in the publishing industry may be 70, while the median norm for businesses in the farming industry may be 59.
+               </xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="PaydexScoreType">
+		<xs:sequence>
+			<xs:element name="PaydexScore">
+				<xs:annotation>
+					<xs:documentation>
+A calculated element summarizing the payment habits of a subject based on trade experiences obtained from its suppliers over the last 3 months.
+               </xs:documentation>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:int">
+						<xs:totalDigits value="3"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="PaymentBehaviorText" type="assprod:StringBaseType128" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>
+Text that describes likelihood than an organization with this value of the paydex score will pay their suppliers, e.g., before terms, beyond terms, within terms.
+               </xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="PaymentBehaviorDaysQuantity" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>
+A number specifying the number of days that a subject with this value of the Paydex Score would pays its suppliers.
+               </xs:documentation>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:int">
+						<xs:totalDigits value="3"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="TotalPaymentExperiencesUsedCount" type="xs:long" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>
+The number of payment experiences that contributed to this payment index score. As an example, the score may have been derived from 18 payment experiences from various suppliers.
+               </xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:simpleType name="PortfolioAssetContainerIDType">
+		<xs:restriction base="xs:long"/>
+	</xs:simpleType>
+	<xs:simpleType name="PortfolioAssetIDType">
+		<xs:restriction base="xs:long"/>
+	</xs:simpleType>
+	<xs:complexType name="PortfolioComparisonScoreType">
+		<xs:annotation>
+			<xs:documentation>
+Records D&amp;amp;B&apos;s proprietary analytics information probability that an organization will go out of business in the next 12 months in comparison to all organizations within the same model segment. The score ranges from 1 to 9 where 9 reflects the highest probability and 1 reflects the lowest probability that the organization will go out of business.
+         </xs:documentation>
+		</xs:annotation>
+		<xs:complexContent>
+			<xs:extension base="assprod:ViabilityScoreType">
+				<xs:sequence>
+					<xs:element name="ModelSegmentDescription" type="assprod:DNBDecodedStringType" minOccurs="0">
+						<xs:annotation>
+							<xs:documentation>
+Text that describes the classification of the organization determined by the amount and type of data available on that organization.
+                     </xs:documentation>
+						</xs:annotation>
+					</xs:element>
+					<xs:element name="SegmentBadRate" minOccurs="0">
+						<xs:annotation>
+							<xs:documentation>
+The percentage of organizations within a model segment that can become inoperable.
+                     </xs:documentation>
+						</xs:annotation>
+						<xs:simpleType>
+							<xs:restriction base="xs:decimal">
+								<xs:totalDigits value="5"/>
+								<xs:fractionDigits value="2"/>
+							</xs:restriction>
+						</xs:simpleType>
+					</xs:element>
+				</xs:sequence>
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+	<xs:complexType name="Position">
+		<xs:annotation>
+			<xs:documentation>
+An entry loop which can repeat multiple times to allow the recording of a job that is or was held by the principal or manager using D&amp;B standardized codes.  For instance, whether the position has been described to D&amp;B as Financial Director, Finance Director, or Director of Finance, it will be mapped to a single code described as Financial Director.
+         </xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="PositionText" type="assprod:DNBDecodedStringType">
+				<xs:annotation>
+					<xs:documentation>
+Text which denotes the job position the principal or manager holds or has held in the organization, e.g., Financial Director, Managing Director, Sales Director, Operations Manager.
+               </xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="PrimaryAddressType">
+		<xs:complexContent>
+			<xs:extension base="assprod:BaseAddressType"/>
+		</xs:complexContent>
+	</xs:complexType>
+	<xs:complexType name="PrimaryIndustryCodeType">
+		<xs:annotation>
+			<xs:documentation>
+Aggregate section containing multiple Industry Codes
+         </xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="IndustryCode">
+				<xs:annotation>
+					<xs:documentation>
+An alphanumeric value identifying a business activity based on the scheme specified by the typeText.  For instance, 1611 represents the highway and street construction industry in the U.S. SIC (Standard Industrial Classification) system.
+Clarification Note:    These are generally external codes created by an external authoritative body, like the U.S. Office of Management and Budget (OMB), but D&amp;B may have created extensions to more precisely define an activity, as in the case of the SIC 2+2 (the last 4 digits of an 8-digit SIC).
+               </xs:documentation>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:string">
+						<xs:maxLength value="16"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="IndustryCodeDescription" type="assprod:IndustryCodeDescriptionType" minOccurs="0" maxOccurs="unbounded">
+				<xs:annotation>
+					<xs:documentation>
+Text that describes the business activity based on the scheme specified by the attribute typeText. E.g., &apos;highway and street construction&apos; is the description of industry code 1611 in the U.S. SIC (Standard Industrial Classification) system.
+               </xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:sequence>
+		<xs:attribute name="DNBCodeTableNumber" type="xs:int">
+			<xs:annotation>
+				<xs:documentation>
+The identifier of the table in the D&amp;B Standard Code Table System (SCoTS) which has this unique D&amp;B code value.
+            </xs:documentation>
+			</xs:annotation>
+		</xs:attribute>
+		<xs:attribute name="DNBCodeValue" type="assprod:DNBCodeValueType">
+			<xs:annotation>
+				<xs:documentation>
+A unique number assigned by D&amp;B to identify the fact recorded in this data element.
+            </xs:documentation>
+			</xs:annotation>
+		</xs:attribute>
+		<xs:attribute name="TypeText" type="assprod:StringBaseType256">
+			<xs:annotation>
+				<xs:documentation>
+Text that identifies the industry coding scheme for this Industry Code, e.g., U.S. Standard Industrial Classification (SIC) 1987, Standard Industry Code - 8 digit, North American Industry Classification System (NAICS), Nomenclature Generale des Activites Economiques dans L`Union Europeenne (NACE).
+            </xs:documentation>
+			</xs:annotation>
+		</xs:attribute>
+	</xs:complexType>
+	<xs:complexType name="PrincipalsAndManagement">
+		<xs:annotation>
+			<xs:documentation>
+Records details of the Principals (e.g., President, Vice President, Directors) and Managers responsible for the business strategy, decision making and day to day running of the subjects operations. This includes names, addresses and identification numbers of the principals. Whilst a principal will usually be an individual in some countries it is legally acceptable for a registered business entity to act as a principal in another business.
+This excludes shareholders and similar owners who are not responsible for the management of the organization but includes proprietors and partners who, whilst owners, are also generally the principals running the business.
+         </xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="MostSeniorPrincipal" type="assprod:Management" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>
+Records the details of the most important principal.
+               </xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="Product">
+		<xs:sequence>
+			<xs:element name="DNBProductID" type="assprod:ProductCode" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>
+An alphanumeric string that uniquely identifies this product.
+               </xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="LanguageCode" type="assprod:DNBCodeValueType" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>
+A D&amp;B code value that defines the language in which the requested product is fulfilled.
+               </xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="Organization" type="assprod:Organization">
+				<xs:annotation>
+					<xs:documentation>
+Records data about an organization, a legal or commercial entity established to provide products and/or services in the marketplace or to the community.
+               </xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="ArchiveDetail" type="assprod:ResponseArchiveDetail" minOccurs="0"/>
+			<xs:element name="CopyrightNoticeText" type="assprod:StringBaseType128" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>
+Text that specifies the underlying claim to copyright ownership of this product.
+               </xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:simpleType name="ProductCode">
+		<xs:restriction base="xs:string">
+			<xs:maxLength value="64"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:complexType name="ProductResponseInquiryDetail">
+		<xs:sequence>
+			<xs:element name="DUNSNumber" type="assprod:DUNSNumberType">
+				<xs:annotation>
+					<xs:documentation>
+The D&amp;B&apos;s identification number, which provides unique identification of the inquired organization, in accordance with the Data Universal Numbering System (D-U-N-S).
+               </xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="CountryISOAlpha2Code" type="assprod:CountryISOAlpha2Type" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>
+The two-letter country code, defined in the ISO 3166-1 scheme published by International Organization for Standardization (ISO)identifying the country of the inquired subject.
+               </xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="ProductSpecification">
+		<xs:sequence>
+			<xs:element name="DNBProductID" type="xs:string">
+				<xs:annotation>
+					<xs:documentation>
+An alphanumeric string that uniquely identifies the product being requested.
+               </xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="LanguagePreferenceCode" type="assprod:DNBCodeValueType" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>
+A D&amp;B code value that defines the language in which the customer wants this product to be rendered.
+               </xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="CharacterSetPreferenceCode" type="assprod:DNBCodeValueType" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>
+A D&amp;B code value denoting the set of graphic symbols (e.g., alphabet letter, pictograph) in which the product is to be rendered, e.g., Unicode.
+               </xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="TradeUpIndicator" type="xs:boolean" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>
+When turn ON (set to TRUE) this denotes that the customer has requested that D&amp;B return the data for the Headquarters when the requested organization is a Branch.
+When turn OFF (set to FALSE) this denotes that the customer has not requested that D&amp;B return the data for the Headquarters when the requested organization is a Branch; however as this is the assumed condition there is no requirement to create this tag to represent this fact.
+Note: There are D&amp;B WorldWide Network operations where the Headquarters information will be returned automatically, regardless of the customer request.
+               </xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="ReturnOnlyInDateDataIndicator" type="xs:boolean" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>
+When turned ON (set to true), the product is to be supplied if and only if the data requested is classified by the data source as being &#8220;in-date&#8221;, i.e., the data is answered from file (AFF).
+When turned OFF (set to false), the product is to be supplied even if the data requested is not classified by the data source as being &#8220;in-date&#8221;, i.e., the data is answered from file (AFF).
+When set to NULL it implies that the product is to be supplied as long as the product is deemed marketable.
+               </xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="OrderReasonCode" type="assprod:DNBCodeValueType" minOccurs="0"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="PublicFilingHeaderType">
+		<xs:sequence>
+			<xs:element name="DisclaimerText" type="assprod:StringBaseType720" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>
+The text that intended to specify or delimit the scope of rights and obligations that may be exercised and enforced by parties in a legally-recognized relationship. In contrast to other terms for legally operative language, the term disclaimer usually implies situations that involve some level of uncertainty, waiver, or risk.
+               </xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="Purchaser">
+		<xs:sequence>
+			<xs:element name="CurrentPaydexScore" type="assprod:CurrentPaydexScoreType" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>
+Records subject&apos;s current Paydex Score. A calculated element summarizing the payment habits of a subject based on trade experiences obtained from its suppliers.
+               </xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="PaydexScoreHistory" type="assprod:PaydexScoreHistoryType" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>
+Records subject&apos;s historical Paydex Scores. A calculated element summarizing the payment habits of a subject based on trade experiences obtained from its suppliers.
+               </xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="CurrentCompositePaydexScore" type="assprod:CompositePaydexScoreType" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>
+Records subject&amp;apos;s current Composite Paydex Score which is the numeric average of the Paydex scores from last 12 months.
+               </xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="CompositePaydexScoreHistory" type="assprod:CompositePaydexScoreType" minOccurs="0" maxOccurs="unbounded">
+				<xs:annotation>
+					<xs:documentation>
+Records subject&amp;apos;s historical Composite Paydex Score which is the numeric average of the Paydex scores from last 12 months.
+               </xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="PurchaserDerivedData" type="assprod:PurchaserDerivedData" minOccurs="0" maxOccurs="unbounded">
+				<xs:annotation>
+					<xs:documentation>
+An entry loop which can repeat multiple times to allow the recording of the payment-based derived data that has been summarized for a purchaser.  Each occurrence of this aggregate represents a single derived data element and its value.
+               </xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="PurchaserDerivedCashPayments">
+		<xs:sequence>
+			<xs:element name="ExperienceCount" type="xs:int" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>
+The number of payment experiences which the D&amp;amp;B Worldwide Network has recorded against the subject.
+               </xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="PurchaserDerivedData">
+		<xs:sequence>
+			<xs:element name="TradeDataYearMonth" type="assprod:DNBDateType" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>
+The year and month of the payment data which has been grouped and summarized here.  Note: For underlying posting data contributing to this summary, this is that data&apos;s year and month from the posting date. For underlying pre-summarized data contributing to this summary, this is that data&apos;s year and month from the experience date. Only data YYYYMM is valid here, where YYYY denotes the Year and MM denotes the Month. MM is always a number in the range of 1 to 12.
+               </xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="TwentyFourMonthsDataCoveragePayments" type="assprod:PurchaserDerivedDataCoveragePayments" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>
+Records the details of the data required to calculate the derived value considering twenty four months data.
+               </xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="PurchaserDerivedDataCoveragePayments">
+		<xs:sequence>
+			<xs:element name="PaymentPeriodSummary" type="assprod:PurchaserDerivedPaymentPeriodSummary" minOccurs="0" maxOccurs="unbounded">
+				<xs:annotation>
+					<xs:documentation>
+An entry loop which can repeat to allow the recording of the results of summarizing the payments made by the subjects.
+               </xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="SlowPaymentsExistIndicator" type="xs:boolean" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>
+When Turned On [Set to TRUE] it indicates the existence of payment experiences with slow payment manner indicated.
+
+When Turned OFF [Set to FALSE] it indicates the abscence of payment experiences with slow payment manner indicated.
+               </xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="PurchaserDerivedPaymentPeriodSummary">
+		<xs:sequence>
+			<xs:element name="SummaryPeriod" type="assprod:DurationType">
+				<xs:annotation>
+					<xs:documentation>
+A number specifying how many complete months (e.g., 3, 12) of payment experience data contributed to this account summary.  The full summary period is through the Experience Date and therefore includes data that may extend somewhat beyond the number of months specified here.  For example, if the value here is 3, meaning 3 months, and the experience date is July 5, 2008, then the summary period is from April 1st  through July 4th, or in other words, the complete months of April, May, and June, plus the first four days of July.
+               </xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="PaymentsWithHighCredit" type="assprod:PurchaserDerivedPaymentsWithHighCredit" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>
+Records the details of the highest amount from each of a subject&#8217;s accounts that was extended to it on the expectation of payment within the agreed upon terms.
+               </xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="UnfavorablePayments" type="assprod:PurchaserDerivedUnfavorablePayments" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>
+Records the details of the payment experiences which the D&amp;B Worldwide Network has recorded against the subject that are viewed negatively within the summary period.
+               </xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="SatisfactoryPayments" type="assprod:SatisfactoryPayments" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>
+			Records the details of payment experiences considered satisfactory.Satisfactory indicated by &quot;SATISFACTORY&quot; in Payment notes or indication of &quot;ANTIC&quot;, &quot;ANTIC-DISC&quot;, &quot;ANTIC-PPT&quot;, &quot;DISC&quot;, &quot;DISC-PPT&quot;, &quot;PPT&quot; as Payment Manner
+						   </xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="PurchaserDerivedPaymentsWithHighCredit">
+		<xs:sequence>
+			<xs:element name="ExperienceCount" type="xs:int" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>
+The number of payment experiences which the D&amp;amp;B Worldwide Network has recorded against the subject.
+               </xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="HighCreditMaximumAmount" type="assprod:AmountType" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>
+The greatest monetary figure owed to the supplier by the subject over the period of time specified by the Summary Period.
+               </xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="AverageHighCreditAmount" type="assprod:AmountType" minOccurs="0"/>
+			<xs:element name="SlowExperienceCount" type="xs:int" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>
+Records the number of trade experiences that have slow payment manner.
+               </xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="PastDueTotalCount" type="xs:int" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>
+			The number of payment experiences for which there&apos;s indication of past due.
+						   </xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="SlowNegativeExperienceCount" type="xs:int" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>
+The total number of payment experiences with slow pay manner and negative comments is derived from the number of slow plus the number of negative minus the number of slow/negative.
+               </xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="PastDueTotalAmount" type="assprod:AmountType" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>
+			A monetary figure specifying the total dollar amount of all the past due experiences.
+						   </xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="PurchaserDerivedUnfavorablePayments">
+		<xs:sequence>
+			<xs:element name="ExperienceCount" type="xs:int" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>
+The number of payment experiences which the D&amp;amp;B Worldwide Network has recorded against the subject.
+               </xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="Rating">
+		<xs:sequence>
+			<xs:element name="RatingReason" type="assprod:RatingReason" minOccurs="0" maxOccurs="unbounded"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="RatingReason">
+		<xs:sequence>
+			<xs:element name="RatingReasonText" type="assprod:DNBDecodedStringType" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>
+Text that explains one of the primary reasons for assigning the rating to the organization, e.g., financial problems, bankrupt, strong net worth, strong sales performance.
+               </xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="Request">
+		<xs:complexContent>
+			<xs:extension base="assprod:Message">
+				<xs:sequence>
+					<xs:element name="TransactionDetail" type="assprod:RequestTransactionDetail" minOccurs="0">
+						<xs:annotation>
+							<xs:documentation>
+Records information necessary to process this request.
+                     </xs:documentation>
+						</xs:annotation>
+					</xs:element>
+				</xs:sequence>
+				<xs:attribute name="ServiceVersionNumber" type="assprod:ServiceVersionNumber">
+					<xs:annotation>
+						<xs:documentation>
+A number assigned by D&amp;B which either uniquely identifies or helps to identify the state of this software deliverable. These numbers are generally assigned in increasing order and correspond to new releases in the software. For example 2.0.
+                  </xs:documentation>
+					</xs:annotation>
+				</xs:attribute>
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+	<xs:complexType name="RequestTransactionDetail">
+		<xs:annotation>
+			<xs:documentation>
+Records information necessary to process a particular request. Examples of a request is the ordering of a product.
+         </xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="ApplicationTransactionID" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>
+A number assigned by the calling application to uniquely identify this request.
+               </xs:documentation>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:string">
+						<xs:maxLength value="64"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="TransactionTimestamp" type="assprod:DateTimestamp" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>
+The date and time when this request was created. When the request is from an intermediary, such as a workflow manager or service bus, this is the date and time when the message was sent to the D&amp;B function, i.e., the date and time when the xml document was created by the requesting intermediary.
+               </xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="SubmittingOfficeID" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>
+A number that identifies the system or the software application from where this request originated. / A number used to uniquely identfy the D&amp;amp;B business segment or delivery channel from where this request originated.
+               </xs:documentation>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:string">
+						<xs:maxLength value="64"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="Response">
+		<xs:complexContent>
+			<xs:extension base="assprod:Message">
+				<xs:sequence>
+					<xs:element name="TransactionDetail" type="assprod:ResponseTransactionDetail">
+						<xs:annotation>
+							<xs:documentation>
+Records information necessary to process a particular request. Examples of a request is the ordering of a product.
+                     </xs:documentation>
+						</xs:annotation>
+					</xs:element>
+					<xs:element name="TransactionResult" type="assprod:TransactionResult">
+						<xs:annotation>
+							<xs:documentation>
+An aggregate that can repeat multiple times to record the different outcomes of the transaction.
+                     </xs:documentation>
+						</xs:annotation>
+					</xs:element>
+				</xs:sequence>
+				<xs:attribute name="ServiceVersionNumber" type="assprod:ServiceVersionNumber" use="required">
+					<xs:annotation>
+						<xs:documentation>
+A number assigned by D&amp;B which either uniquely identifies or helps to identify the state of this software deliverable. These numbers are generally assigned in increasing order and correspond to new developments in the software. E.g., 2.0.
+                  </xs:documentation>
+					</xs:annotation>
+				</xs:attribute>
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+	<xs:complexType name="ResponseArchiveDetail">
+		<xs:sequence>
+			<xs:element name="PortfolioAssetID" type="assprod:PortfolioAssetIDType"/>
+			<xs:element name="PortfolioAssetContainerID" type="assprod:PortfolioAssetContainerIDType" minOccurs="0"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="ResponseTransactionDetail">
+		<xs:sequence>
+			<xs:element name="ApplicationTransactionID" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>
+A number assigned by the calling application to uniquely identify this request.
+               </xs:documentation>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:string">
+						<xs:maxLength value="64"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="ServiceTransactionID">
+				<xs:annotation>
+					<xs:documentation>
+A number assigned by the D&amp;B service to uniquely identify this transaction.
+               </xs:documentation>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:string">
+						<xs:maxLength value="64"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="TransactionTimestamp" type="assprod:DateTimestamp">
+				<xs:annotation>
+					<xs:documentation>
+The date and time when this request was submitted or the date and time when the requesting intermediary, such as a workflow manager or service bus, sent the message to the D&amp;B function, i.e., the date and time when the xml document was created by the requesting intermediary.
+               </xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="ResultMessage">
+		<xs:sequence>
+			<xs:element name="ResultDescription">
+				<xs:annotation>
+					<xs:documentation>
+Text that describes the additional information regarding the outcome of the transaction.
+               </xs:documentation>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:string">
+						<xs:maxLength value="512"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="RetrieveProductArchiveDetail">
+		<xs:sequence>
+			<xs:element name="PortfolioAssetContainerID" type="assprod:PortfolioAssetContainerIDType" minOccurs="0"/>
+			<xs:element name="PortfolioAssetID" type="assprod:PortfolioAssetIDType"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:element name="RetrieveProductRequest" type="assprod:RetrieveProductRequest"/>
+	<xs:complexType name="RetrieveProductRequest">
+		<xs:complexContent>
+			<xs:extension base="assprod:Request">
+				<xs:sequence>
+					<xs:element name="RetrieveProductRequestDetail" type="assprod:RetrieveProductRequestDetail"/>
+				</xs:sequence>
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+	<xs:complexType name="RetrieveProductRequestDetail">
+		<xs:sequence>
+			<xs:element name="ArchiveDetail" type="assprod:RetrieveProductArchiveDetail"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:element name="RetrieveProductResponse" type="assprod:RetrieveProductResponse"/>
+	<xs:complexType name="RetrieveProductResponse">
+		<xs:complexContent>
+			<xs:extension base="assprod:Response">
+				<xs:sequence>
+					<xs:element name="RetrieveProductResponseDetail" type="assprod:RetrieveProductResponseDetail" minOccurs="0"/>
+				</xs:sequence>
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+	<xs:complexType name="RetrieveProductResponseDetail">
+		<xs:sequence>
+			<xs:element name="Product" type="assprod:Product"/>
+			<xs:element name="InquiryReferenceDetail" type="assprod:InquiryReferenceDetail" minOccurs="0"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="RiskIncidence">
+		<xs:sequence>
+			<xs:element name="ClassScore" minOccurs="0">
+				<xs:simpleType>
+					<xs:restriction base="xs:string">
+						<xs:maxLength value="16"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="RiskIncidenceScoreableUniverseSubjectPercentage" minOccurs="0">
+				<xs:simpleType>
+					<xs:restriction base="xs:decimal">
+						<xs:totalDigits value="5"/>
+						<xs:fractionDigits value="2"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="RiskIncidenceRelativeToOverallRiskIncidencePercentage" minOccurs="0">
+				<xs:simpleType>
+					<xs:restriction base="xs:decimal">
+						<xs:totalDigits value="16"/>
+						<xs:fractionDigits value="2"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="RiskIncidenceRelativeToOverallRiskIncidenceText" type="assprod:StringBaseType128" minOccurs="0"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="Role"/>
+	<xs:complexType name="SatisfactoryPayments">
+		<xs:annotation>
+			<xs:documentation>
+Records the details of payment experiences considered satisfactory.Satisfactory indicated by &quot;SATISFACTORY&quot; in Payment notes or indication of &quot;ANTIC&quot;, &quot;ANTIC-DISC&quot;, &quot;ANTIC-PPT&quot;, &quot;DISC&quot;, &quot;DISC-PPT&quot;, &quot;PPT&quot; as Payment Manner
+         </xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="ExperienceCount" type="xs:int" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>
+The number of payment experiences considered satisfactory. Satisfactory indicated by &quot;SATISFACTORY&quot; in Payment notes or indication of &quot;ANTIC&quot;, &quot;ANTIC-DISC&quot;, &quot;ANTIC-PPT&quot;, &quot;DISC&quot;, &quot;DISC-PPT&quot;, &quot;PPT&quot; as Payment Manner
+               </xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="ScoreCommentary">
+		<xs:annotation>
+			<xs:documentation>
+Records comments about the score of this organization in comparison to other organizations that are classified as being in the same category as this organization. For example comparison of this organization&apos;s score to that of another organization classified as being in the same industry.
+         </xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="CommentaryText" type="assprod:DNBDecodedStringType" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>
+Text that explains the primary reasons for the score.
+               </xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="DisplaySequence" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>
+A number which may be used to define the order in which the reason code should be presented relative to any other occurrences of reason code where the lower the number the earlier the data is presented.
+               </xs:documentation>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:int">
+						<xs:totalDigits value="3"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="ScoreNormType">
+		<xs:sequence>
+			<xs:element name="ScoreModelVersionNumber" minOccurs="0">
+				<xs:simpleType>
+					<xs:restriction base="xs:string">
+						<xs:maxLength value="16"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="RiskIncidencePercentageIndustryNorm" type="assprod:NormType" minOccurs="0" maxOccurs="unbounded">
+				<xs:annotation>
+					<xs:documentation>
+Records various statistically determined standards, such as the average or quartile results of the raw score, categorized by the Risk Incidence Percentage.
+               </xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="ScoreOverrideReason">
+		<xs:sequence>
+			<xs:element name="ScoreOverrideReasonText" type="assprod:DNBDecodedStringType" minOccurs="0"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="ScoreReferenceType">
+		<xs:sequence>
+			<xs:element name="RiskIncidence" type="assprod:RiskIncidence" minOccurs="0" maxOccurs="unbounded"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="ScoreType">
+		<xs:annotation>
+			<xs:documentation>
+Contains all the sub-sections and elements belonging to the Scores Adv Data bucket.
+         </xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="RawScore" type="xs:long" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>
+A numeric value that predicts the likelihood that the risk  will occur.
+               </xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="ClassScore" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>
+A one digit number from 0 to 5 based on the information in DNB file.A numeric value that succinctly expresses the likelihood of risk by specifying in which risk group this organization belongs.  In other words, it specifies where this organization falls in a statistical distribution of all businesses (e.g, a bell curve, a half-normal distribution).
+               </xs:documentation>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:string">
+						<xs:maxLength value="3"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="ClassScoreDescription" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>
+Text that describes the Class Score Value that expresses the likelihood of risk by specifying in which risk group this organization belongs.
+               </xs:documentation>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:string">
+						<xs:maxLength value="240"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="NationalPercentile" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>
+A number that identifies where this organization&apos;s score falls relative to the scores of other businesses.  As an example, if the percentile here is 10, it means that this organization&apos;s score is the same as or better than 10% of the businesses in D&amp;B&apos;s information base, but not as good as 90% of the businesses.
+               </xs:documentation>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:decimal">
+						<xs:totalDigits value="5"/>
+						<xs:fractionDigits value="2"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="RiskIncidencePercentage" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>
+A percentage that expresses the likelihood that the inferred risk (e.g., payment delinquency, discontinued operations) will occur for this organization. This percentage is determined based on which range this organization&apos;s score falls within a pre-determined set of score ranges. The ranges and percentages are determined through analysis of historical events.
+               </xs:documentation>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:decimal">
+						<xs:totalDigits value="10"/>
+						<xs:fractionDigits value="5"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="RiskIncidenceCount" type="xs:int" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>
+The number of organizations with the same Class Score that have experienced the risk.
+               </xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="AverageNationalRiskIncidencePercentage" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>
+A percentage that express the Average number of Failures happened.
+               </xs:documentation>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:decimal">
+						<xs:totalDigits value="5"/>
+						<xs:fractionDigits value="2"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="AverageNationalRiskIncidenceCount" type="xs:int" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>
+The number of failures happened relative to the total number of failures happened of other businesses.
+               </xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="AverageNationalRiskIncidenceCountSizeUnitText" type="xs:long" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>
+Text that descibes the Unit of Measure for the Average Failure Count.
+               </xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="ScoreCommentary" type="assprod:ScoreCommentary" minOccurs="0" maxOccurs="unbounded">
+				<xs:annotation>
+					<xs:documentation>
+An entry loop which can repeat multiple times to allow the recording of primary reasons for the score.
+               </xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="ScoreModelVersionNumber" minOccurs="0">
+				<xs:simpleType>
+					<xs:restriction base="xs:string">
+						<xs:maxLength value="16"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="ScoreDate" type="assprod:DNBDateType" minOccurs="0"/>
+			<xs:element name="ScoreOverrideReason" type="assprod:ScoreOverrideReason" minOccurs="0" maxOccurs="unbounded"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:simpleType name="ServiceVersionNumber">
+		<xs:restriction base="xs:string">
+			<xs:maxLength value="10"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="SeverityType">
+		<xs:restriction base="xs:string">
+			<xs:maxLength value="16"/>
+			<xs:enumeration value="Error"/>
+			<xs:enumeration value="Fatal"/>
+			<xs:enumeration value="Information"/>
+			<xs:enumeration value="Warning"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:complexType name="Shareholder">
+		<xs:complexContent>
+			<xs:extension base="assprod:Ownership">
+				<xs:sequence>
+					<xs:element name="Events" type="assprod:Events" minOccurs="0">
+						<xs:annotation>
+							<xs:documentation>
+Records the information about that different events against the subject, e.g., legal event, financial event, significant event.
+                     </xs:documentation>
+						</xs:annotation>
+					</xs:element>
+				</xs:sequence>
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+	<xs:complexType name="SignificantEvents">
+		<xs:annotation>
+			<xs:documentation>
+Records the information about events such as natural disasters (e.g., floods, hurricane), accidents (e.g., chemical spillage), major events at the organization (e.g., change of control, business interruption, awarded contract), societal events (e.g., war, civil disturbance) that may have affected the subject.
+         </xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="SpecialEvent" type="assprod:SpecialEventType" minOccurs="0" maxOccurs="unbounded">
+				<xs:annotation>
+					<xs:documentation>
+An entry loop which can repeat multiple times to allow the recording of information about a key event which may affect the subject. It covers such things as: natural disasters (e.g., floods, hurricane), accidents (e.g., chemical spillage), major events at the business (e.g.,change of control,business interruption, awarded contract), societal events (e.g., war, civil disturbance).
+               </xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="SimpleAddress">
+		<xs:sequence>
+			<xs:element name="StreetAddressLine" type="assprod:StreetAddressLine" minOccurs="0" maxOccurs="unbounded">
+				<xs:annotation>
+					<xs:documentation>
+An entry loop which can repeat multiple times to allow the recording of  several lines where each address line contains one or more named address elements. Examples of named address elements are Street Name, Street Number, Building Name, Estate Name. They are called &#8220;lines&#8221; because an addres can be divided into multiple lines. When there are multiple lines the sequence of the lines must be preserved.
+               </xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="PrimaryTownName" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>
+The name of the town or city recognized by the Postal Authority for delivering mail.
+               </xs:documentation>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:string">
+						<xs:maxLength value="64"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="CountryISOAlpha2Code" type="assprod:CountryISOAlpha2Type" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>
+The two-letter country code, defined in the ISO 3166-1 scheme published by International Organization for Standardization (ISO), identifying the country for this address.
+               </xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="SpecialEventType">
+		<xs:complexContent>
+			<xs:extension base="assprod:BaseEventType"/>
+		</xs:complexContent>
+	</xs:complexType>
+	<xs:complexType name="StatementHeaderDetails">
+		<xs:complexContent>
+			<xs:extension base="assprod:StatementHeaderType"/>
+		</xs:complexContent>
+	</xs:complexType>
+	<xs:complexType name="StatementHeaderType">
+		<xs:sequence>
+			<xs:element name="FinancialStatementToDate" type="assprod:DNBDateType" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>
+The date when the accounting period ended. If the Reliability Code denotes the figures are projected (future), then this is the date when the accounting period will end.
+               </xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="CurrencyISOAlpha3Code" type="assprod:CurrencyISOAlpha3Code" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>
+The three-letter code, published by International Organization for Standardization (ISO), identifying the type of money that is primarily used by this subject
+               </xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="UnitOfSizeText" type="assprod:DNBDecodedStringType" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>
+Text which identifies the unit of size in which the financial summary figures are provided, e.g., in 1,000s; in 1,000,000s. The financial figures should be populated to the record with the 000&apos;s or 000,000&apos;s omitted, e.g., If Sales are 54398 with 000&apos;s omitted then the figure of 54398 (NOT 54398000) should be populated.
+                     </xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="FinancialPeriodDuration" type="assprod:DurationType" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>
+Records the period of the Financial Summary when this cannot be expressed using &apos;Summary Date&apos; and &apos;Number of Months&apos;
+                     </xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="StatementItem">
+		<xs:sequence>
+			<xs:element name="ItemDescriptionText" type="assprod:DNBStringType256" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>
+Text  that describes the account for the monetary amount recorded in &apos;Item Amount&apos;, e.g., Cash, Property &amp; Equipment, Total Liabilities, Retained Earnings.
+               </xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="ItemAmount" type="assprod:AmountType" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>
+Records the monetary value of a Financial Statement Item.
+               </xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="DisplaySequence" type="xs:int" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>
+A number which may be used to define the order in which the text Entry should be presented relative to any other occurrences of TXT Entry where the lower the number the earlier the data is presented.
+               </xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="StatementItem" type="assprod:StatementItem" minOccurs="0" maxOccurs="unbounded">
+				<xs:annotation>
+					<xs:documentation>
+An entry loop which can repeat multiple times to allow the recording of all of the details (financial items) for a specific schedule within the Financial Statement in terms of monetary amounts.
+               </xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:sequence>
+		<xs:attribute name="DNBCodeValue" type="assprod:DNBCodeValueType">
+			<xs:annotation>
+				<xs:documentation>
+A unique number assigned by D&amp;B to identify the fact recorded in this data element.
+            </xs:documentation>
+			</xs:annotation>
+		</xs:attribute>
+		<xs:attribute name="DNBCodeTableNumber" type="xs:int">
+			<xs:annotation>
+				<xs:documentation>
+The identifier of the table in the D&amp;B Standard Code Table System (SCoTS) which has this unique D&amp;B code value.
+            </xs:documentation>
+			</xs:annotation>
+		</xs:attribute>
+		<xs:attribute name="ExternalCodingSchemeTypeText" type="xs:string"/>
+		<xs:attribute name="ExternalCodingSchemeValue" type="xs:string"/>
+		<xs:attribute name="ParentDNBCodeValue" type="assprod:DNBCodeValueType"/>
+	</xs:complexType>
+	<xs:complexType name="StreetAddressLine">
+		<xs:annotation>
+			<xs:documentation>
+An entry loop which can repeat multiple times to allow the recording of several street address lines of this address. This includes address line details prior to the Suburb or Town/City region address line. This includes the portion of the address lines which deal with the street address components, such as street name, street number, building name, estate name.
+         </xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="LineText">
+				<xs:annotation>
+					<xs:documentation>
+Text that records the street address components as it would be presented on an address label. This includes, but is not limited to, details such as street name, street number, building name, estate name.
+               </xs:documentation>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:string">
+						<xs:maxLength value="240"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:simpleType name="StringBaseType">
+		<xs:restriction base="xs:string">
+			<xs:maxLength value="3000"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="StringBaseType128">
+		<xs:restriction base="xs:string">
+			<xs:maxLength value="128"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="StringBaseType256">
+		<xs:restriction base="xs:string">
+			<xs:maxLength value="256"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="StringBaseType720">
+		<xs:restriction base="xs:string">
+			<xs:maxLength value="720"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:complexType name="Subject">
+		<xs:sequence>
+			<xs:element name="SubjectHeader" type="assprod:SubjectHeader">
+				<xs:annotation>
+					<xs:documentation>
+Records high level information about the subject such as the primary language of the subject and the primary currency in which this subject trades. When the subject is an organizantion, this may also include details such as DUNS Number.
+               </xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="Telecommunication" type="assprod:Telecommunication" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>
+Records information about the different modes of Telecommunication addresses used by a subject for external contact purposes. The modes of communication include telephone, fax, e-mail, web address.
+               </xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="Location" type="assprod:Location" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>
+Records the address details for a subject. An address is the designation of a place where a subject can be located or may be communicated with, e.g., primary address, registered address, mailing address.
+               </xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="Financial" type="assprod:Financial" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>
+Records a standardized view the financial results of a subject usually extracted from a set of accounts. This includes the financial period to which those results apply, the terms of its audited status, whether is fiscal or estimated, whether it is a group/consolidated or individual statement etc. The identifying data for the financial statement (e.g. The financial period to which it refers) and the 70 D&amp;B global standard financial items are recorded in the &apos;Statement&apos; aggregate. Additionally the full granular view of the financial statement may be recorded in the &apos;Financial Statement Schedule&apos; sub-aggregation.
+               </xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="Events" type="assprod:Events" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>
+Records the information about events that have either involved or affected the subject (usually an organization, but sometimes an individual who is an owner or principal of an organization). It covers legal events, significant events and financing events.
+               </xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="SubjectAddressType">
+		<xs:sequence>
+			<xs:element name="PrimaryAddress" type="assprod:PrimaryAddressType" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>
+Records the primary or physical address of a subject. For an organization this is the principal address at which the organization is located. For an individual, this is the home address.
+               </xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="MailingAddress" type="assprod:MailAddressType" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>
+Records an address which is mainly utilized for the purpose of mail delivery. This usually includes a Post Office Box number or similar mailing details.
+               </xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="OfficeOrWorkAddress" type="assprod:PrimaryAddressType" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>
+Records the address at which an individual officially works. This is used to record the working address of a principal, generally this will not be required as the principal&apos;s work address is assumed to be the primary address of the business subject. However where this is not the case, or simply where it is desirable to be explicit about the principal&apos;s working address this address is recorded here.
+               </xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="SubjectHeader">
+		<xs:annotation>
+			<xs:documentation>
+Records high level information about the subject such as the D-U-N-S Number assigned to the subject, the primary language of the subject and the primary currency in which this subject trades. When the subject is an organizantion, this will also include country details where the organization is registered.
+         </xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="DUNSNumber" type="assprod:DUNSNumberType" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>
+The D-U-N-S Number is D&amp;B&apos;s identification number, which provides unique identification of this organization, in accordance with the Data Universal Numbering System (D-U-N-S).
+               </xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="SubjectName" abstract="true"/>
+	<xs:complexType name="SubscribedToLetterOfLiability">
+		<xs:sequence>
+			<xs:element name="IssuerInformation" type="assprod:IssuerInformation" minOccurs="0"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="SubscriberInfomation">
+		<xs:sequence>
+			<xs:element name="BusinessName" type="assprod:StringBaseType256" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>
+Name of the subscribing organization.
+               </xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="FilingDate" type="assprod:DNBDateType" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>
+The date on which the subscriber company submitted a letter to take over the liabilities of the subject company
+               </xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="IssuerAddress" type="assprod:SubjectAddressType" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>
+Address Details of the Letter of Liability subcribers .
+               </xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="MostRecentAgreementDate" type="assprod:DNBDateType" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>
+The date when the Letter of Liability Subscriber received an acceptance letter from the Letter of Liability Issuer. For example, in the Netherlands it is required by law that the Letter of Liability Issuer must confirm yearly in writing that the liability is maintained; hence, the Letter of Liability Issuer is not required to publish its individual balance sheet.
+               </xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="SupplierEvaluationRiskScore">
+		<xs:sequence>
+			<xs:element name="RiskScore" minOccurs="0">
+				<xs:simpleType>
+					<xs:restriction base="xs:string">
+						<xs:maxLength value="16"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="ScoreCommentary" type="assprod:ScoreCommentary" minOccurs="0" maxOccurs="unbounded">
+				<xs:annotation>
+					<xs:documentation>
+An entry loop which can repeat multiple times to allow the recording of  comments about the score of this organization
+               </xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="SupplierPerformanceScoreType">
+		<xs:annotation>
+			<xs:documentation>
+Records the most recent scores that are assigned to this organization that predicts how well the organization as a supplier is performing for its customers.
+         </xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="OverallPerformanceScore">
+				<xs:annotation>
+					<xs:documentation>
+A numeric value that predicts the customer satisfaction towards the performance of this organization. This can range from 1 to 100 where 1 denotes lowest performance and 100 denotes highest performance.
+               </xs:documentation>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:string">
+						<xs:maxLength value="3"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+	   <xs:complexType name="TriplePlayScoreType">
+      <xs:sequence>
+         <xs:element name="CompositeRiskScore"  minOccurs="0">
+            <xs:annotation>
+               <xs:documentation>
+A numeric value from 0 to 6 that predicts overall risk of doing business with the subject company based on payment delinquency, company never paying and company ceasing operations. A value of 0 denotes higher risk and value 6 denotes lower risk.
+               </xs:documentation>
+            </xs:annotation>
+            <xs:simpleType>
+               <xs:restriction base="xs:int">
+                  <xs:totalDigits value="1"/>
+               </xs:restriction>
+            </xs:simpleType>
+         </xs:element>
+         <xs:element name="ViabilityRatingBandValue"  minOccurs="0">
+            <xs:annotation>
+               <xs:documentation>
+A numeric value from 0 to 2 that classifies the subject company into a risk group based on the probability that an organization going out of business or becoming inactive compared to other businesses in the same model segment. A value of 0 denotes low risk, 1 denotes average risk and 2 denotes high risk.
+               </xs:documentation>
+            </xs:annotation>
+            <xs:simpleType>
+               <xs:restriction base="xs:int">
+                  <xs:totalDigits value="1"/>
+               </xs:restriction>
+            </xs:simpleType>
+         </xs:element>
+         <xs:element name="TotalLossPredictorBandValue"  minOccurs="0">
+            <xs:annotation>
+               <xs:documentation>
+A numeric value from 0 to 2 that classifies the subject company into a risk group based on the likelihood that the organization will never pay or willing to pay its first payment. A value of 0 denotes low risk, 1 denotes average risk and 2 denotes high risk.
+               </xs:documentation>
+            </xs:annotation>
+            <xs:simpleType>
+               <xs:restriction base="xs:int">
+                  <xs:totalDigits value="1"/>
+               </xs:restriction>
+            </xs:simpleType>
+         </xs:element>
+         <xs:element name="DelinquencyScoreBandValue"  minOccurs="0">
+            <xs:annotation>
+               <xs:documentation>
+A numeric value from 0 to 2 that classifies the subject company into a risk group based on the likelihood that the organization pays its payment in severly delinquent manner. A value of 0 denotes low risk, 1 denotes average risk and 2 denotes high risk.
+               </xs:documentation>
+            </xs:annotation>
+            <xs:simpleType>
+               <xs:restriction base="xs:int">
+                  <xs:totalDigits value="1"/>
+               </xs:restriction>
+            </xs:simpleType>
+         </xs:element>
+         <xs:element name="ClusterValue"  minOccurs="0">
+            <xs:annotation>
+               <xs:documentation>
+A numeric value that classifies the subject company into a broader performance or risk groups based on ViabilityPortfolioScoreBandValue, TotalLossPredictorBandValue and DelinquencyScoreBandValue. The values are concatenation of the band values mentioned above; e.g., 121, 222.
+               </xs:documentation>
+            </xs:annotation>
+            <xs:simpleType>
+               <xs:restriction base="xs:string">
+                    <xs:maxLength value="64"/>
+               </xs:restriction>
+            </xs:simpleType>
+         </xs:element>
+         <xs:element name="SegmentValue" type="xs:int" minOccurs="0">
+            <xs:annotation>
+               <xs:documentation>
+A numeric value from 1 to 5 that classifies the subject company into the larger performance or risk groups based on the ClusterValue. A value of 1 denotes lower risk and value 5 denotes higher risk.
+               </xs:documentation>
+            </xs:annotation>
+         </xs:element>
+         <xs:element name="SegmentDescription"  minOccurs="0">
+            <xs:annotation>
+               <xs:documentation>
+Text that describes the SegmentValue. For example SegmentValue 1 denotes &#8220;It is all good&#8221; where all 3 scores are in the &#8220;low risk&#8221; category and SegmentValue 5 denotes &#8220;Danger danger&#8221; where all 3 scores are in the &#8220;high risk&#8221; category. This should be present only when the  SegmentValue is present.
+               </xs:documentation>
+            </xs:annotation>
+            <xs:simpleType>
+               <xs:restriction base="xs:string">
+                  <xs:maxLength value="64"/>
+               </xs:restriction>
+            </xs:simpleType>
+         </xs:element>
+      </xs:sequence>
+   </xs:complexType>
+	<xs:complexType name="Telecommunication">
+		<xs:annotation>
+			<xs:documentation>
+Records information about the different modes of Telecommunication addresses used by a subject for external contact purposes. The modes of communication include telephone, fax, e-mail, web address.
+         </xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="TelephoneNumber" type="assprod:TelecommunicationNumberType" minOccurs="0" maxOccurs="unbounded">
+				<xs:annotation>
+					<xs:documentation>
+An entry loop which can allow multiple Telephone contact information used for voice communication with the subject.
+               </xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="FacsimileNumber" type="assprod:TelecommunicationNumberType" minOccurs="0" maxOccurs="unbounded">
+				<xs:annotation>
+					<xs:documentation>
+An entry loop which can allow multiple Facsimile contact information used for data communication with the subject.
+               </xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="TelecommunicationNumberSimpleType">
+		<xs:sequence>
+			<xs:element name="TelecommunicationNumber">
+				<xs:annotation>
+					<xs:documentation>
+A sequence of digits used by the subject for voice communication in a public switched telephone network.
+This sequence of digits includes the area code or city code.
+Note: This number does not include the International Dialing Code and Domestic Dialing Code.
+               </xs:documentation>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:string">
+						<xs:minLength value="1"/>
+						<xs:maxLength value="50"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="InternationalDialingCode" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>
+The country calling code assigned by the International Telecommunication Union (ITU) required to connect to this Telecommunication Number of the subject country when dialing from outside the subject country; e.g., &apos;1&apos; for the US, &apos;44&apos; for the UK, &apos;91&apos; for India.
+               </xs:documentation>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:string">
+						<xs:maxLength value="7"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="TelecommunicationNumberType">
+		<xs:complexContent>
+			<xs:extension base="assprod:TelecommunicationNumberSimpleType"/>
+		</xs:complexContent>
+	</xs:complexType>
+	<xs:complexType name="TotalLossPredictorScoreType">
+		<xs:annotation>
+			<xs:documentation>
+Records the most recent risk scores that are assigned to this organization on a given date/time using a scoring model that help predict the likelihood that the organization will not pay other commercial businesses, which affects financial institutions and other industries that extend trade credit.
+         </xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="ScoreTimestamp" type="assprod:DateTimestamp" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>
+The date and time when the risk scores were assigned to this subject. In the event that the risk scores could not be assigned, this is the date and time when the reason was recorded explaining why the score was not assigned.
+               </xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="RawScore" type="xs:long" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>
+A numeric value that predicts the likelihood that the risk will occur.
+               </xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="ClassScore" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>
+A numeric value from 1 to 10 that succinctly expresses the likelihood of risk by specifying in which risk group this organization belongs.  In other words, it specifies where this organization falls in a statistical distribution of all businesses (e.g, a bell curve, a half-normal distribution).
+A value of 1 denotes lowest risk and a value of 10 denotes highest risk.    
+               </xs:documentation>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:string">
+						<xs:maxLength value="3"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="ClassScoreDescription" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>
+Text that describes the Class Score Value that expresses the likelihood of risk by specifying in which risk group this organization belongs.
+               </xs:documentation>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:string">
+						<xs:maxLength value="240"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="RiskIncidencePercentage" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>
+A percentage that expresses the likelihood that the inferred risk (e.g., payment delinquency, discontinued operations) will occur for this organization. This percentage is determined based on which range this organization&amp;apos;s score falls within a pre-determined set of score ranges. The ranges and percentages are determined through analysis of historical events.
+               </xs:documentation>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:decimal">
+						<xs:totalDigits value="10"/>
+						<xs:fractionDigits value="5"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="ScoreCommentary" type="assprod:ScoreCommentary" minOccurs="0" maxOccurs="unbounded">
+				<xs:annotation>
+					<xs:documentation>
+An entry loop which can repeat multiple times to allow the recording of primary reasons for the score.
+               </xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="ScoreOverrideReason" type="assprod:ScoreOverrideReason" minOccurs="0" maxOccurs="unbounded">
+				<xs:annotation>
+					<xs:documentation>
+An entry loop which can repeat multiple times to allow the recording of explanations stating why the risk score replaced the originally calculated value. The override reason can be recorded as a result of a manual adjustment or system rule.
+               </xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="TradeDataAvailabilityDetail">
+		<xs:annotation>
+			<xs:documentation>
+Records the statistical information based on the trade payment data available for this organization.
+         </xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="TradeDataAvailableIndicator" type="xs:boolean" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>
+When turned ON (set to TRUE) this indicates that D&amp;amp;B has business trading information on this organization.
+
+When turned OFF (set to FALSE) this indicates that D&amp;amp;B does not have business trading information on this organization.
+               </xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="AssessmentText" minOccurs="0" maxOccurs="unbounded">
+				<xs:annotation>
+					<xs:documentation>
+Text that describes the outcome of assessment on the level of predictive data available or the risk category to which the organization belongs.
+               </xs:documentation>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:string">
+						<xs:maxLength value="512"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="TransactionResult">
+		<xs:sequence>
+			<xs:element name="SeverityText" type="assprod:SeverityType">
+				<xs:annotation>
+					<xs:documentation>
+Text that records the criticality of the outcome, e.g., Information, Warning, Error, Fatal.
+               </xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="ResultID">
+				<xs:annotation>
+					<xs:documentation>
+An alphanumeric string that uniquely identifies the outcome of the transaction.
+               </xs:documentation>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:string">
+						<xs:maxLength value="32"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="ResultText" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>
+Text that explains the outcome of the transaction.
+               </xs:documentation>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:string">
+						<xs:maxLength value="512"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="ResultMessage" type="assprod:ResultMessage" minOccurs="0" maxOccurs="unbounded">
+				<xs:annotation>
+					<xs:documentation>
+An aggregate that can repeat multiple times to record textual data that expands on the ResultID and ResultText to provide additional information to the user regarding the status of the transaction. If the status implies that there is a problem this may also provide guidance to the user on how to address it.
+               </xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:simpleType name="UnitOfSizeEnumeration">
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="SingleUnits"/>
+			<xs:enumeration value="Tens"/>
+			<xs:enumeration value="Hundred"/>
+			<xs:enumeration value="Thousand"/>
+			<xs:enumeration value="Million"/>
+			<xs:enumeration value="Billion"/>
+			<xs:enumeration value="Trillion"/>
+			<xs:enumeration value="Quadrillion"/>
+			<xs:enumeration value="Quintillion"/>
+			<xs:enumeration value="Sextillion"/>
+			<xs:enumeration value="Septillion"/>
+			<xs:enumeration value="Octillion"/>
+			<xs:enumeration value="Nonillion"/>
+			<xs:enumeration value="Decillion"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:complexType name="ViabilityScoreType">
+		<xs:annotation>
+			<xs:documentation>
+Records D&amp;B&apos;s proprietary analytics information on the probability that an organization will go out of business in the next 12 months in comparison to all organizations within the same geography.
+         </xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="ClassScore">
+				<xs:annotation>
+					<xs:documentation>
+A numeric value that denotes the probability that an organization will go out of business in the next 12 months in comparison to all organizations within the same geography. The score ranges from 0 to 9 where the range 1 to 9 reflects the probability that the organization will go out of business (1 reflects the lowest probability and 9 reflects highest probability) and the score 0 denotes that the subject is either Out Of Business or Unable To Confirm.
+               </xs:documentation>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:int">
+						<xs:totalDigits value="1"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="RiskLevelDescription" type="assprod:DNBDecodedStringType" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>
+Text that describes the Class Score value that expresses the likelihood of risk by specifying in which risk group this organization belongs.
+               </xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="BadRate" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>
+The percentage of organizations with the same class score that can become inoperable. For example, for all organizations with class score 1 for a Viability model, it is expected that 0.2% of these organizations will become inoperable.
+               </xs:documentation>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:decimal">
+						<xs:totalDigits value="5"/>
+						<xs:fractionDigits value="2"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="ClassScoreIncidencePercentage" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>
+The number of organizations expressed as a percentage that are assigned the same class score as the subject organization.
+               </xs:documentation>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:decimal">
+						<xs:totalDigits value="5"/>
+						<xs:fractionDigits value="2"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="YearsInBusinessDetail">
+		<xs:annotation>
+			<xs:documentation>
+Records the statistical information based on the number of years since this organization commenced its operation.
+         </xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="YearsInBusinessCategoryText">
+				<xs:annotation>
+					<xs:documentation>
+Text denoting the broader classification of organizations assigned by D&amp;B based on the age of this organization.
+               </xs:documentation>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:string">
+						<xs:maxLength value="64"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="AssessmentText" type="xs:string" minOccurs="0" maxOccurs="unbounded">
+				<xs:annotation>
+					<xs:documentation>
+Text that describes the outcome of assessment on the level of predictive data available or the risk category to which the organization belongs.
+               </xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="CompositePaydexScoreType">
+		<xs:annotation>
+			<xs:documentation>
+Records subject&amp;apos;s current Composite Paydex Score which is the numeric average of the Paydex scores from last 12 months.
+         </xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="CompositePaydexScore">
+				<xs:annotation>
+					<xs:documentation>
+The numeric average of the Paydex scores from last 12 months.
+               </xs:documentation>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:int">
+						<xs:totalDigits value="3"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="ScoreDate" type="assprod:DNBDateType" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>
+The date marking the end of the time period covered by the payment performance score.
+               </xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+</xs:schema>

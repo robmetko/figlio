@@ -1,0 +1,111 @@
+﻿<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns="http://www.nbfc.com/Services/Schemas/Common/v3" targetNamespace="http://www.nbfc.com/Services/Schemas/Common/v3" elementFormDefault="qualified" attributeFormDefault="qualified" version="2.0" id="NBSchemasCommonV3">
+	<xsd:annotation>
+		<xsd:documentation>
+			  This is the Northbridge XML schema for common types that can be used in several services, version 3.0
+    </xsd:documentation>
+		<xsd:appinfo>
+			<!--xsd:version>1.0.0</xsd:version-->
+			<!--xsd:genDate>March 17 2014</xsd:genDate-->
+		</xsd:appinfo>
+	</xsd:annotation>
+	<!-- Northbridge Message Headers -->
+	<xsd:element name="ReqHeader" type="ReqHeader_Type" />
+	<xsd:complexType name="ReqHeader_Type">
+		<xsd:sequence>
+			<xsd:element name="ReqID" type="xsd:string" />
+			<xsd:element name="SessionID" type="xsd:string" minOccurs="0" />
+			<xsd:element name="LogUserID" type="xsd:string" minOccurs="0" />
+			<xsd:element name="SystemName" type="xsd:string" minOccurs="0" />
+			<xsd:element name="Language" type="xsd:string" minOccurs="0" />
+		</xsd:sequence>
+	</xsd:complexType>
+	<xsd:element name="RespHeader" type="RespHeader_Type" />
+	<xsd:complexType name="RespHeader_Type">
+		<xsd:sequence>
+			<xsd:element name="ReqID" type="xsd:string" />
+			<xsd:element name="RespID" type="xsd:string" />
+			<xsd:element name="SessionID" type="xsd:string" minOccurs="0" />
+		</xsd:sequence>
+	</xsd:complexType>
+	<!-- Northbridge Message Response Status -->
+	<xsd:element name="Status" type="Status_Type" />
+	<xsd:complexType name="Status_Type">
+		<xsd:sequence>
+			<xsd:element name="Error" minOccurs="0" maxOccurs="unbounded">
+				<xsd:complexType>
+					<xsd:sequence>
+						<xsd:element name="ErrorType" type="ErrorType_List" minOccurs="0" />
+						<xsd:element name="ErrorCode" type="xsd:string" minOccurs="0" />
+						<xsd:element name="ShortDesc" type="xsd:string" minOccurs="0" />
+						<xsd:element name="FullDescription" type="xsd:string" minOccurs="0" />
+					</xsd:sequence>
+				</xsd:complexType>
+			</xsd:element>
+		</xsd:sequence>
+		<xsd:attribute name="StatusCode" type="xsd:integer" use="required" />
+	</xsd:complexType>
+	<!-- Common types -->
+	<xsd:element name="Fault" type="Fault_Type" />
+	<xsd:complexType name="Fault_Type">
+		<xsd:sequence>
+			<xsd:element name="FaultCode" type="xsd:string" />
+			<xsd:element name="FaultDescription" type="xsd:string" minOccurs="0" />
+		</xsd:sequence>
+	</xsd:complexType>
+	<!-- Code Lists for Common types-->
+	<xsd:simpleType name="ErrorType_List">
+		<xsd:restriction base="xsd:string">
+			<xsd:enumeration value="ValidationError" />
+			<xsd:enumeration value="TransformationError" />
+			<xsd:enumeration value="None" />
+		</xsd:restriction>
+	</xsd:simpleType>
+	<!-- Rating Type Enum-->
+	<xsd:simpleType name="RatingType">
+		<xsd:restriction base="xsd:string">
+			<xsd:enumeration value="CommercialAuto" />
+			<xsd:enumeration value="None" />
+		</xsd:restriction>
+	</xsd:simpleType>
+	<xsd:element name="Address" type="Address_Type" nillable="true" />
+	<xsd:complexType name="Address_Type">
+		<xsd:sequence>
+			<xsd:element name="Municipality" type="xsd:string" nillable="true" minOccurs="0" />
+			<xsd:element name="PostalCode" type="xsd:string" nillable="true" minOccurs="0" />
+			<xsd:element name="ProvinceCode" type="xsd:string" nillable="true" minOccurs="0" />
+			<xsd:element name="Province" type="xsd:string" nillable="true" minOccurs="0" />
+			<xsd:element name="StreetAddress" type="xsd:string" nillable="true" minOccurs="0" />
+			<xsd:element name="StreetDirection" type="xsd:string" nillable="true" minOccurs="0" />
+			<xsd:element name="StreetName" type="xsd:string" nillable="true" minOccurs="0" />
+			<xsd:element name="StreetNumber" type="xsd:string" nillable="true" minOccurs="0" />
+			<xsd:element name="StreetType" type="xsd:string" nillable="true" minOccurs="0" />
+			<xsd:element name="UnitNumber" type="xsd:string" nillable="true" minOccurs="0" />
+			<xsd:element name="CountryCode" type="xsd:string" nillable="true" minOccurs="0" />
+			<xsd:element name="Country" type="xsd:string" nillable="true" minOccurs="0" />
+			<xsd:element name="Latitude" type="xsd:string" nillable="true" minOccurs="0" />
+			<xsd:element name="Longitude" type="xsd:string" nillable="true" minOccurs="0" />
+		</xsd:sequence>
+	</xsd:complexType>
+	<xsd:element name="Contact" type="Contact_Type" nillable="true" />
+	<xsd:complexType name="Contact_Type">
+		<xsd:sequence>
+			<xsd:element name="Name" type="xsd:string" nillable="true" minOccurs="0" />
+			<xsd:element name="PhoneNumber" type="xsd:string" nillable="true" minOccurs="0" />
+			<xsd:element name="Email" type="xsd:string" nillable="true" minOccurs="0" />
+		</xsd:sequence>
+	</xsd:complexType>
+	<xsd:element name="AgencyBroker" type="AgencyBroker_Type" nillable="true" />
+	<xsd:complexType name="AgencyBroker_Type">
+		<xsd:sequence>
+			<xsd:element name="LocationName" type="xsd:string" nillable="true" minOccurs="0" />
+			<xsd:element name="LocationCode" type="xsd:string" nillable="true" minOccurs="0" />
+			<xsd:element name="Producer" type="xsd:string" nillable="true" minOccurs="0" />
+			<xsd:element name="Marketer" type="xsd:string" nillable="true" minOccurs="0" />
+		</xsd:sequence>
+	</xsd:complexType>
+	<!-- Northbridge Common Entities -->
+	<!--
+    separate schemas /  namespaces can be created for complex aggregates and entities
+    e.g. http://www.nbfc.com/Services/Schemas/XML/Common/Policy/v1
+  -->
+</xsd:schema>
