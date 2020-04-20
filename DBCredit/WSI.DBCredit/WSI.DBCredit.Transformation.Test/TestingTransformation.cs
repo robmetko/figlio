@@ -36,7 +36,7 @@ namespace WSI.DnBCredit.Transformation.Test
             // Test_DnBtoNB_FIND_Compnay_ResponseTransformation();
 
 
-
+//robmetko april 20 220
             // TestIncomeRequestFromNB();
 
             //find compnay response
